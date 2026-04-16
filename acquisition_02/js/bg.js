@@ -7,11 +7,11 @@
     const H = canvas.height;
     ctx.clearRect(0, 0, W, H);
 
-    // 베이스 배경 - 블루 그라데이션
+    // 베이스 배경 - 거의 흰색에 가까운 연블루
     const bg = ctx.createLinearGradient(0, 0, W, H);
-    bg.addColorStop(0,   '#e8f2ff');
-    bg.addColorStop(0.5, '#cce0ff');
-    bg.addColorStop(1,   '#b8d4ff');
+    bg.addColorStop(0,   '#ffffff');
+    bg.addColorStop(0.5, '#f0f6ff');
+    bg.addColorStop(1,   '#deeaf8');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
@@ -60,15 +60,15 @@
           const cy = (tri[0][1] + tri[1][1] + tri[2][1]) / 3 / H;
           const dist = cx * 0.6 + cy * 0.4;
 
-          // 색상 범위: 연한 블루~진한 블루
-          const lightness = 1 - dist * 0.22 + (t - 0.5) * 0.10;
-          const blueAmount = dist * 0.7 + (t - 0.5) * 0.15;
+          // 거의 흰색~아주 연한 블루그레이
+          const lightness = 0.96 - dist * 0.12 + (t - 0.5) * 0.06;
+          const blueAmount = dist * 0.3 + (t - 0.5) * 0.08;
 
-          const r_ = Math.round(180 * lightness - blueAmount * 40);
-          const g_ = Math.round(210 * lightness - blueAmount * 10);
-          const b_ = Math.round(255 * lightness + blueAmount * 10);
+          const r_ = Math.round(255 * lightness - blueAmount * 30);
+          const g_ = Math.round(255 * lightness - blueAmount * 15);
+          const b_ = Math.round(255 * lightness + blueAmount * 8);
 
-          const alpha = 0.35 + t * 0.45;
+          const alpha = 0.18 + t * 0.30;
 
           ctx.beginPath();
           ctx.moveTo(tri[0][0], tri[0][1]);
@@ -79,9 +79,9 @@
           ctx.fillStyle = `rgba(${Math.min(255,r_)},${Math.min(255,g_)},${Math.min(255,b_)},${alpha})`;
           ctx.fill();
 
-          // 경계선 (아주 얇고 밝게)
-          ctx.strokeStyle = `rgba(255,255,255,0.6)`;
-          ctx.lineWidth = 0.5;
+          // 경계선
+          ctx.strokeStyle = `rgba(255,255,255,0.8)`;
+          ctx.lineWidth = 0.4;
           ctx.stroke();
         });
       }
