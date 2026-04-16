@@ -121,8 +121,6 @@
         for (let col = 0; col * GRID < canvas.width + GRID; col++) {
           const x = col * GRID + (row % 2 === 0 ? 0 : GRID * 0.5);
           const y = row * GRID + (li === 1 ? GRID * 0.5 : 0);
-          const inLP = x + SIZE > lpLeft && x - SIZE < lpRight;
-          if (inLP) { idx++; continue; }
           const angle = ((row * 9 + col * 11 + li * 5) % 20 - 10) * (Math.PI / 180) * 2;
           const alpha = alphaBase * (0.7 + 0.3 * Math.sin(row + col * 1.5));
           const col2  = (row + col) % 3 === 0 ? COLOR1 : COLOR2;

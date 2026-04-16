@@ -4,12 +4,6 @@
   const COLOR = '#8cc84b';
   const ALPHA = 0.35;
 
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    draw();
-  }
-
   const icons = [
     // スマホ
     function(ctx, x, y, s) {
@@ -133,9 +127,7 @@
     ctx.fillStyle = '#dff0b8';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const lpLeft = (canvas.width - 390) / 2;
-    const lpRight = lpLeft + 390;
-
+    // LP 중앙 스킵 없이 전체에 그리기
     const GRID = 90;
     const ICON_SIZE = 22;
     let idx = 0;
@@ -143,13 +135,18 @@
       for (let col = 0; col * GRID < canvas.width + GRID; col++) {
         const x = col * GRID + (row % 2 === 0 ? 0 : GRID * 0.5);
         const y = row * GRID;
-        if (x + ICON_SIZE > lpLeft - 10 && x - ICON_SIZE < lpRight + 10) continue;
         const angle = ((row * 7 + col * 13) % 16 - 8) * (Math.PI / 180) * 3;
         const iconFn = icons[(row * 3 + col * 5 + idx) % icons.length];
         drawIcon(iconFn, x, y, ICON_SIZE, angle);
         idx++;
       }
     }
+  }
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    draw();
   }
 
   window.addEventListener('resize', resize);
