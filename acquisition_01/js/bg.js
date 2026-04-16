@@ -1,157 +1,117 @@
 (function () {
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
-  const COLOR = '#8cc84b';
-  const ALPHA = 0.35;
 
-  /* ── 아이콘 드로잉 함수 ── */
+  // ① ポイントアプリ型 — 연두/노랑 그라데이션 배경 + 코인/별/선물 촘촘하게
+  const BG_TOP    = '#c8e87a';
+  const BG_BOTTOM = '#fff8c0';
+  const COLOR     = '#7ab82a';
+  const ALPHA     = 0.45;
+
   const icons = [
-    // スマホ
+    // コイン（P）
     function (ctx, x, y, s) {
-      ctx.beginPath();
-      ctx.roundRect(x - s * 0.4, y - s * 0.6, s * 0.8, s * 1.2, s * 0.12);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(x, y + s * 0.45, s * 0.08, 0, Math.PI * 2);
-      ctx.stroke();
-    },
-    // コイン
-    function (ctx, x, y, s) {
-      ctx.beginPath();
-      ctx.arc(x, y, s * 0.5, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.font = `bold ${s * 0.5}px sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
+      ctx.beginPath(); ctx.arc(x, y, s * 0.48, 0, Math.PI * 2); ctx.fill();
+      ctx.save();
+      ctx.globalAlpha *= 1.6;
+      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      ctx.font = `bold ${s * 0.52}px sans-serif`;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText('P', x, y + 1);
-    },
-    // ショッピングバッグ
-    function (ctx, x, y, s) {
-      ctx.beginPath();
-      ctx.roundRect(x - s * 0.45, y - s * 0.3, s * 0.9, s * 0.8, s * 0.08);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x - s * 0.2, y - s * 0.3);
-      ctx.quadraticCurveTo(x - s * 0.2, y - s * 0.7, x, y - s * 0.7);
-      ctx.quadraticCurveTo(x + s * 0.2, y - s * 0.7, x + s * 0.2, y - s * 0.3);
-      ctx.stroke();
-    },
-    // ギフト
-    function (ctx, x, y, s) {
-      ctx.beginPath();
-      ctx.roundRect(x - s * 0.45, y - s * 0.15, s * 0.9, s * 0.65, s * 0.06);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.rect(x - s * 0.45, y - s * 0.3, s * 0.9, s * 0.18);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x, y - s * 0.3);
-      ctx.lineTo(x, y + s * 0.5);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x, y - s * 0.3);
-      ctx.bezierCurveTo(x - s * 0.3, y - s * 0.6, x - s * 0.5, y - s * 0.15, x, y - s * 0.15);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x, y - s * 0.3);
-      ctx.bezierCurveTo(x + s * 0.3, y - s * 0.6, x + s * 0.5, y - s * 0.15, x, y - s * 0.15);
-      ctx.stroke();
-    },
-    // クレジットカード
-    function (ctx, x, y, s) {
-      ctx.beginPath();
-      ctx.roundRect(x - s * 0.55, y - s * 0.35, s * 1.1, s * 0.7, s * 0.08);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x - s * 0.55, y - s * 0.1);
-      ctx.lineTo(x + s * 0.55, y - s * 0.1);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.roundRect(x - s * 0.42, y + s * 0.05, s * 0.3, s * 0.16, s * 0.04);
-      ctx.stroke();
+      ctx.restore();
     },
     // 星
     function (ctx, x, y, s) {
-      const pts = 5, r1 = s * 0.5, r2 = s * 0.22;
+      const pts = 5, r1 = s * 0.48, r2 = s * 0.20;
       ctx.beginPath();
       for (let i = 0; i < pts * 2; i++) {
         const r = i % 2 === 0 ? r1 : r2;
         const a = (i * Math.PI / pts) - Math.PI / 2;
-        i === 0
-          ? ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a))
-          : ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a));
+        i === 0 ? ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a))
+                : ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a));
       }
-      ctx.closePath();
-      ctx.stroke();
+      ctx.closePath(); ctx.fill();
     },
-    // アンケート用紙
+    // ギフトボックス
+    function (ctx, x, y, s) {
+      ctx.beginPath(); ctx.roundRect(x - s*0.42, y - s*0.1, s*0.84, s*0.58, s*0.06); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(x - s*0.42, y - s*0.28, s*0.84, s*0.2, s*0.04); ctx.fill();
+      ctx.save();
+      ctx.globalAlpha *= 0.4;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.rect(x - s*0.06, y - s*0.28, s*0.12, s*0.86); ctx.fill();
+      ctx.restore();
+    },
+    // ハート
     function (ctx, x, y, s) {
       ctx.beginPath();
-      ctx.roundRect(x - s * 0.4, y - s * 0.6, s * 0.8, s * 1.2, s * 0.06);
-      ctx.stroke();
-      [-0.3, -0.05, 0.2].forEach(dy => {
-        ctx.beginPath();
-        ctx.moveTo(x - s * 0.22, y + s * dy);
-        ctx.lineTo(x + s * 0.22, y + s * dy);
-        ctx.stroke();
-      });
+      ctx.moveTo(x, y + s * 0.35);
+      ctx.bezierCurveTo(x - s*0.6, y, x - s*0.6, y - s*0.5, x, y - s*0.15);
+      ctx.bezierCurveTo(x + s*0.6, y - s*0.5, x + s*0.6, y, x, y + s*0.35);
+      ctx.fill();
     },
-    // 財布
+    // スマホ（丸っこく）
+    function (ctx, x, y, s) {
+      ctx.beginPath(); ctx.roundRect(x - s*0.36, y - s*0.56, s*0.72, s*1.12, s*0.18); ctx.fill();
+      ctx.save();
+      ctx.globalAlpha *= 0.35;
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.roundRect(x - s*0.26, y - s*0.44, s*0.52, s*0.72, s*0.10); ctx.fill();
+      ctx.restore();
+    },
+    // ダイヤ
     function (ctx, x, y, s) {
       ctx.beginPath();
-      ctx.roundRect(x - s * 0.5, y - s * 0.35, s, s * 0.7, s * 0.1);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.roundRect(x + s * 0.05, y - s * 0.2, s * 0.35, s * 0.4, s * 0.1);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(x + s * 0.25, y, s * 0.1, 0, Math.PI * 2);
-      ctx.stroke();
+      ctx.moveTo(x, y - s*0.5);
+      ctx.lineTo(x + s*0.4, y - s*0.1);
+      ctx.lineTo(x, y + s*0.5);
+      ctx.lineTo(x - s*0.4, y - s*0.1);
+      ctx.closePath(); ctx.fill();
     },
   ];
 
-  function drawIcon(iconFn, x, y, size, angle) {
+  function drawIcon(iconFn, x, y, size, angle, alpha) {
     ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-    ctx.globalAlpha = ALPHA;
-    ctx.strokeStyle = COLOR;
+    ctx.translate(x, y); ctx.rotate(angle);
+    ctx.globalAlpha = alpha;
     ctx.fillStyle = COLOR;
-    ctx.lineWidth = 1.4;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
     iconFn(ctx, 0, 0, size);
     ctx.restore();
   }
 
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // 배경색
-    ctx.fillStyle = '#dff0b8';
+    // グラデーション背景（全面）
+    const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    grad.addColorStop(0, BG_TOP);
+    grad.addColorStop(1, BG_BOTTOM);
+    ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // LP 중앙 390px 영역은 스킵
     const lpLeft  = (canvas.width - 390) / 2;
     const lpRight = lpLeft + 390;
 
-    const GRID      = 90;
-    const ICON_SIZE = 22;
-    let idx = 0;
+    // サイズ違いの2レイヤーで密度アップ
+    const layers = [
+      { GRID: 60, SIZE: 14, alphaBase: 0.38 },
+      { GRID: 95, SIZE: 24, alphaBase: 0.28 },
+    ];
 
-    for (let row = 0; row * GRID < canvas.height + GRID; row++) {
-      for (let col = 0; col * GRID < canvas.width + GRID; col++) {
-        const x = col * GRID + (row % 2 === 0 ? 0 : GRID * 0.5);
-        const y = row * GRID;
-
-        if (x + ICON_SIZE > lpLeft - 10 && x - ICON_SIZE < lpRight + 10) continue;
-
-        const angle  = ((row * 7 + col * 13) % 16 - 8) * (Math.PI / 180) * 3;
-        const iconFn = icons[(row * 3 + col * 5 + idx) % icons.length];
-        drawIcon(iconFn, x, y, ICON_SIZE, angle);
-        idx++;
+    layers.forEach(({ GRID, SIZE, alphaBase }, li) => {
+      let idx = li * 31;
+      for (let row = 0; row * GRID < canvas.height + GRID; row++) {
+        for (let col = 0; col * GRID < canvas.width + GRID; col++) {
+          const x = col * GRID + (row % 2 === 0 ? 0 : GRID * 0.5);
+          const y = row * GRID + (li === 1 ? GRID * 0.5 : 0);
+          // LP中央は薄く描く（完全スキップしない）
+          const inLP = x + SIZE > lpLeft && x - SIZE < lpRight;
+          if (inLP) { idx++; continue; }
+          const angle = ((row * 11 + col * 7 + li * 3) % 24 - 12) * (Math.PI / 180) * 2.5;
+          const alpha = alphaBase * (0.7 + 0.3 * Math.sin(row * 0.9 + col * 1.3));
+          drawIcon(icons[(row * 5 + col * 3 + idx) % icons.length], x, y, SIZE, angle, alpha);
+          idx++;
+        }
       }
-    }
+    });
   }
 
   function resize() {

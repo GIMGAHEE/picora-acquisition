@@ -14,7 +14,7 @@
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background-color: #e8f5c8;
+  background-color: #c8e87a;
   min-height: 100vh;
 }
 
@@ -24,7 +24,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   position: relative;
-  background-color: #dff0b8;
+  background-color: #c8e87a;
 }
 
 .lp {
