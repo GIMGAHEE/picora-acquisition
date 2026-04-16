@@ -1,109 +1,95 @@
 (function() {
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
-  const COLOR = '#5ba4f5';
-  const ALPHA = 0.28;
-
-  const shapes = [
-    // 円（大）
-    function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.arc(x, y, s*0.46, 0, Math.PI*2); ctx.stroke();
-    },
-    // 円（小・二重）
-    function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.arc(x, y, s*0.46, 0, Math.PI*2); ctx.stroke();
-      ctx.beginPath(); ctx.arc(x, y, s*0.26, 0, Math.PI*2); ctx.stroke();
-    },
-    // 正方形
-    function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.rect(x-s*0.38, y-s*0.38, s*0.76, s*0.76); ctx.stroke();
-    },
-    // 角丸四角形
-    function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.roundRect(x-s*0.40, y-s*0.40, s*0.80, s*0.80, s*0.16); ctx.stroke();
-    },
-    // 正三角形
-    function(ctx, x, y, s) {
-      ctx.beginPath();
-      ctx.moveTo(x, y - s*0.46);
-      ctx.lineTo(x + s*0.40, y + s*0.28);
-      ctx.lineTo(x - s*0.40, y + s*0.28);
-      ctx.closePath(); ctx.stroke();
-    },
-    // 十字
-    function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.moveTo(x, y-s*0.46); ctx.lineTo(x, y+s*0.46); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x-s*0.46, y); ctx.lineTo(x+s*0.46, y); ctx.stroke();
-    },
-    // ひし形
-    function(ctx, x, y, s) {
-      ctx.beginPath();
-      ctx.moveTo(x, y-s*0.48);
-      ctx.lineTo(x+s*0.34, y);
-      ctx.lineTo(x, y+s*0.48);
-      ctx.lineTo(x-s*0.34, y);
-      ctx.closePath(); ctx.stroke();
-    },
-    // 水平線（短）
-    function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.moveTo(x-s*0.44, y); ctx.lineTo(x+s*0.44, y); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x-s*0.28, y-s*0.18); ctx.lineTo(x+s*0.28, y-s*0.18); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x-s*0.28, y+s*0.18); ctx.lineTo(x+s*0.28, y+s*0.18); ctx.stroke();
-    },
-    // プラス（細め）
-    function(ctx, x, y, s) {
-      ctx.lineWidth = s * 0.07;
-      ctx.beginPath(); ctx.moveTo(x, y-s*0.38); ctx.lineTo(x, y+s*0.38); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x-s*0.38, y); ctx.lineTo(x+s*0.38, y); ctx.stroke();
-    },
-    // 半円
-    function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.arc(x, y+s*0.06, s*0.42, Math.PI, 0); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x-s*0.42, y+s*0.06); ctx.lineTo(x+s*0.42, y+s*0.06); ctx.stroke();
-    },
-  ];
-
-  function drawShape(shapeFn, x, y, size, angle, alpha) {
-    ctx.save();
-    ctx.translate(x, y); ctx.rotate(angle);
-    ctx.globalAlpha = alpha;
-    ctx.strokeStyle = COLOR;
-    ctx.fillStyle = COLOR;
-    ctx.lineWidth = 1.3;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    shapeFn(ctx, 0, 0, size);
-    ctx.restore();
-  }
 
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#d6e8fa';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const W = canvas.width;
+    const H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
 
-    // 2레이어: 작은 것 + 큰 것
-    const layers = [
-      { GRID: 56, SIZE: 14, alphaBase: 0.30 },
-      { GRID: 96, SIZE: 26, alphaBase: 0.18 },
-    ];
+    // 베이스 배경 - 흰색~연한 블루 그라데이션
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0,   '#ffffff');
+    bg.addColorStop(0.4, '#eef4fb');
+    bg.addColorStop(1,   '#d6e8f7');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
 
-    layers.forEach(({ GRID, SIZE, alphaBase }, li) => {
-      let idx = li * 53;
-      for (let row = 0; row * GRID < canvas.height + GRID; row++) {
-        for (let col = 0; col * GRID < canvas.width + GRID; col++) {
-          const x = col * GRID + (row % 2 === 0 ? 0 : GRID * 0.5);
-          const y = row * GRID + (li === 1 ? GRID * 0.48 : 0);
-          const angle = ((row * 11 + col * 7 + li * 19) % 8) * (Math.PI / 4);  // 45도 단위로 깔끔하게
-          const alpha = alphaBase * (0.7 + 0.3 * Math.sin(row * 1.1 + col * 0.7));
-          drawShape(shapes[(row * 3 + col * 7 + idx) % shapes.length], x, y, SIZE, angle, alpha);
-          idx++;
-        }
+    // 로우폴리 삼각형 생성
+    const seed = 42;
+    function rng(n) {
+      let x = Math.sin(n + seed) * 43758.5453;
+      return x - Math.floor(x);
+    }
+
+    // 격자 기반 버텍스 생성
+    const COLS = 10;
+    const ROWS = Math.ceil(H / (W / COLS) * 1.2) + 2;
+    const cellW = W / (COLS - 1);
+    const cellH = H / (ROWS - 1);
+
+    // 버텍스 배열 생성 (약간 랜덤 오프셋)
+    const verts = [];
+    for (let r = 0; r < ROWS; r++) {
+      verts.push([]);
+      for (let c = 0; c < COLS; c++) {
+        const jx = (rng(r * 100 + c * 3 + 1) - 0.5) * cellW * 0.6;
+        const jy = (rng(r * 100 + c * 3 + 2) - 0.5) * cellH * 0.6;
+        verts[r].push([
+          c * cellW + jx,
+          r * cellH + jy
+        ]);
       }
-    });
+    }
+
+    // 삼각형 그리기
+    for (let r = 0; r < ROWS - 1; r++) {
+      for (let c = 0; c < COLS - 1; c++) {
+        const v0 = verts[r][c];
+        const v1 = verts[r][c + 1];
+        const v2 = verts[r + 1][c];
+        const v3 = verts[r + 1][c + 1];
+
+        // 각 삼각형마다 색상 결정
+        [[v0, v1, v2], [v1, v3, v2]].forEach((tri, ti) => {
+          const n = r * 20 + c * 2 + ti;
+          const t = rng(n);
+
+          // 위치 기반으로 밝기 변화 (왼쪽위=밝음, 오른쪽아래=파랑)
+          const cx = (tri[0][0] + tri[1][0] + tri[2][0]) / 3 / W;
+          const cy = (tri[0][1] + tri[1][1] + tri[2][1]) / 3 / H;
+          const dist = cx * 0.6 + cy * 0.4;
+
+          // 색상 범위: 흰색~연한 회청색
+          const lightness = 1 - dist * 0.28 + (t - 0.5) * 0.12;
+          const blueAmount = dist * 0.55 + (t - 0.5) * 0.12;
+
+          const r_ = Math.round(255 * lightness);
+          const g_ = Math.round(255 * lightness - blueAmount * 18);
+          const b_ = Math.round(255 * lightness + blueAmount * 30);
+
+          const alpha = 0.35 + t * 0.45;
+
+          ctx.beginPath();
+          ctx.moveTo(tri[0][0], tri[0][1]);
+          ctx.lineTo(tri[1][0], tri[1][1]);
+          ctx.lineTo(tri[2][0], tri[2][1]);
+          ctx.closePath();
+
+          ctx.fillStyle = `rgba(${Math.min(255,r_)},${Math.min(255,g_)},${Math.min(255,b_)},${alpha})`;
+          ctx.fill();
+
+          // 경계선 (아주 얇고 밝게)
+          ctx.strokeStyle = `rgba(255,255,255,0.6)`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        });
+      }
+    }
   }
 
   function resize() {
-    canvas.width = window.innerWidth;
+    canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
     draw();
   }
