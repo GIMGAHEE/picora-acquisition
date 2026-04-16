@@ -1,0 +1,455 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy:       #0d1b3e;
+  --navy-mid:   #1a3060;
+  --navy-light: #24405f;
+  --gold:       #c9a84c;
+  --gold-light: #e8cc7a;
+  --cream:      #f8f7f4;
+  --slate:      #a8b2c4;
+  --slate-dark: #6b7a91;
+  --white:      #fff;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--navy);
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  background: transparent;
+}
+
+.lp {
+  width: 390px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+}
+
+.header-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--gold);
+  letter-spacing: 3px;
+}
+
+.header-sub {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--slate);
+  letter-spacing: 2px;
+}
+
+/* ===== MV ===== */
+.mv {
+  background: linear-gradient(180deg, #1a3060 0%, #24405f 33%, #0d1b3e 100%);
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 660px;
+}
+
+/* 배경 장식 원 */
+.mv-deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.2);
+  pointer-events: none;
+}
+.mv-deco-circle--lg {
+  width: 262px; height: 262px;
+  top: -60px; right: -60px;
+}
+.mv-deco-circle--sm {
+  width: 162px; height: 162px;
+  top: -20px; right: -20px;
+  border-color: rgba(201,168,76,0.1);
+}
+
+.mv-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mv-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gold-rule {
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.mv-eyebrow-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 4px;
+}
+
+.mv-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--white);
+  line-height: 1.25;
+}
+
+.mv-title .gold-italic {
+  font-style: italic;
+  color: var(--gold-light);
+}
+
+.mv-desc {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--slate);
+  line-height: 2;
+}
+
+/* ポイントカード */
+.point-card {
+  background: linear-gradient(126deg, #c9a84c 0%, #e8cc7a 50%, #c9a84c 100%);
+  border-radius: 16px;
+  padding: 20px 0;
+  box-shadow: 0 8px 32px rgba(201,168,76,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.point-card-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(13,27,62,0.65);
+  letter-spacing: 2px;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+.point-card-number {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 20px;
+  gap: 2px;
+}
+
+.point-num {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 900;
+  font-size: 60px;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.point-pt {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 900;
+  font-size: 30px;
+  color: var(--navy);
+  padding-bottom: 10px;
+}
+
+.point-card-sub {
+  background: rgba(13,27,62,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 6px 20px;
+  margin-top: 10px;
+}
+
+.point-card-sub p {
+  font-size: 12px;
+  color: var(--white);
+  text-align: right;
+}
+
+.point-card-watermark {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  color: rgba(255,255,255,0.12);
+  letter-spacing: 4px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* CTA */
+.cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  background: transparent;
+}
+
+.cta-btn:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.cta-note {
+  font-size: 12px;
+  color: var(--slate);
+  margin-top: 6px;
+}
+
+/* ===== SECTION COMMON ===== */
+.section {
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section--white { background: var(--white); }
+.section--cream { background: var(--cream); }
+.section--navy  { background: var(--navy); }
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.section-eyebrow-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  line-height: 1;
+}
+
+.title-serif {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--navy);
+}
+
+.title-serif--white { color: var(--white); }
+
+.title-num {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--gold);
+}
+
+.title-gold {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--gold);
+}
+
+/* ===== REASON LIST ===== */
+.reason-list {
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(201,168,76,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.reason-item {
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.reason-num {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--gold);
+  opacity: 0.6;
+  width: 46px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.reason-texts { display: flex; flex-direction: column; gap: 6px; }
+
+.reason-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.reason-desc {
+  font-size: 14px;
+  color: var(--slate-dark);
+  line-height: 1.75;
+  text-align: justify;
+}
+
+/* ===== STEPS ===== */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+}
+
+.steps-list::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 44px;
+  bottom: 44px;
+  width: 1px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--gold) 0, var(--gold) 6px,
+    transparent 6px, transparent 12px
+  );
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--gold);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.step-texts { display: flex; flex-direction: column; gap: 6px; padding-top: 10px; }
+
+.step-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.step-desc {
+  font-size: 14px;
+  color: var(--slate-dark);
+  line-height: 1.75;
+  text-align: justify;
+}
+
+/* ===== FINAL CTA ===== */
+.final-cta {
+  background: var(--navy);
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.final-cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--white);
+  text-align: center;
+}
+
+.final-cta-sub {
+  font-size: 14px;
+  color: var(--slate);
+  text-align: center;
+}
+
+.final-cta-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--gold);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+}
