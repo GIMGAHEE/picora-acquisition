@@ -318,6 +318,12 @@ body {
   font-size: 44px;
 }
 
+.reason-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
 .reason-texts {
   display: flex;
   flex-direction: column;
