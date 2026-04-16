@@ -275,7 +275,8 @@ body {
   border: 3px solid rgba(255,214,0,0.4);
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
+  transition: transform 0.08s, box-shadow 0.08s;
+  image-rendering: pixelated;
 }
 
 .quest-btn:hover { transform: translate(2px,2px); box-shadow: 2px 2px 0 rgba(28,28,28,0.3); }
