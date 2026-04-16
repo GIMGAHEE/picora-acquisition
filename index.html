@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PICORA LP 一覧</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=M+PLUS+Rounded+1c:wght@800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f4f6f9;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      background: linear-gradient(90deg, #1a6fe8, #fca934);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-sub {
+      font-size: 13px;
+      color: #888;
+      border-left: 1px solid #ddd;
+      padding-left: 12px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .page-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #888;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .page-heading {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 32px;
+    }
+
+    .lp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .lp-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .lp-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+    }
+
+    .card-thumb {
+      height: 8px;
+    }
+
+    .card-thumb--green {
+      background: linear-gradient(90deg, #bce86b, #fca934);
+    }
+
+    .card-thumb--blue {
+      background: linear-gradient(90deg, #1a6fe8, #5ba4f5, #f5a623);
+    }
+
+    .card-thumb--dark {
+      background: linear-gradient(90deg, #1a1a2e, #3a3a6e, #c0a060);
+    }
+
+    .card-thumb--game {
+      background: linear-gradient(90deg, #0f0f23, #4a0080, #00ccff);
+    }
+
+    .card-thumb--ad {
+      background: linear-gradient(90deg, #ff6b35, #fca934, #ffe55a);
+    }
+
+    .card-thumb--graphic {
+      background: linear-gradient(90deg, #ff4081, #7c4dff, #00bcd4);
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: #aaa;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a6fe8;
+    }
+
+    .card-link svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .card-wip {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      background: #ccc;
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-bottom: 16px;
+    }
+
+    .card-ready {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      background: #22c55e;
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="logo">PICORA</span>
+  <span class="header-sub">流入経路別 LP デザイン一覧</span>
+</header>
+
+<main>
+  <p class="page-title">Landing Pages</p>
+  <h1 class="page-heading">LP デザイン案 全6種</h1>
+
+  <div class="lp-grid">
+
+    <a href="acquisition_01/index.html" class="lp-card">
+      <div class="card-thumb card-thumb--green"></div>
+      <div class="card-body">
+        <p class="card-num">No. 01</p>
+        <p class="card-title">ポイントアプリ型</p>
+        <p class="card-desc">PICORAカラーを使ったポップなデザイン。コインアニメと2,100ptを前面に押し出した王道LP。</p>
+        <span class="card-ready">公開中</span>
+        <div class="card-link">
+          プレビュー
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 6h8M6 2l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <a href="acquisition_02/index.html" class="lp-card">
+      <div class="card-thumb card-thumb--blue"></div>
+      <div class="card-body">
+        <p class="card-num">No. 02</p>
+        <p class="card-title">リスティング広告型</p>
+        <p class="card-desc">信頼感・数字を強調したブルー系デザイン。検索広告からの流入に最適化。</p>
+        <span class="card-ready">公開中</span>
+        <div class="card-link">
+          プレビュー
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 6h8M6 2l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <a href="acquisition_03/index.html" class="lp-card" style="pointer-events:none;opacity:0.5;">
+      <div class="card-thumb card-thumb--dark"></div>
+      <div class="card-body">
+        <p class="card-num">No. 03</p>
+        <p class="card-title">金融・クリーン型</p>
+        <p class="card-desc">プレミアム感・信頼性を重視したダークトーンのデザイン。</p>
+        <span class="card-wip">準備中</span>
+        <div class="card-link" style="color:#ccc;">
+          プレビュー
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 6h8M6 2l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <a href="acquisition_04/index.html" class="lp-card" style="pointer-events:none;opacity:0.5;">
+      <div class="card-thumb card-thumb--game"></div>
+      <div class="card-body">
+        <p class="card-num">No. 04</p>
+        <p class="card-title">ゲーム型</p>
+        <p class="card-desc">ゲームUIスタイルの没入感あるデザイン。若年層向け。</p>
+        <span class="card-wip">準備中</span>
+        <div class="card-link" style="color:#ccc;">
+          プレビュー
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 6h8M6 2l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <a href="acquisition_05/index.html" class="lp-card" style="pointer-events:none;opacity:0.5;">
+      <div class="card-thumb card-thumb--ad"></div>
+      <div class="card-body">
+        <p class="card-num">No. 05</p>
+        <p class="card-title">広告型</p>
+        <p class="card-desc">バナー広告スタイルの訴求力重視デザイン。2カラーバリエーション。</p>
+        <span class="card-wip">準備中</span>
+        <div class="card-link" style="color:#ccc;">
+          プレビュー
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 6h8M6 2l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <a href="acquisition_06/index.html" class="lp-card" style="pointer-events:none;opacity:0.5;">
+      <div class="card-thumb card-thumb--graphic"></div>
+      <div class="card-body">
+        <p class="card-num">No. 06</p>
+        <p class="card-title">グラフィック型</p>
+        <p class="card-desc">ビジュアルインパクト重視のグラフィカルなデザイン。</p>
+        <span class="card-wip">準備中</span>
+        <div class="card-link" style="color:#ccc;">
+          プレビュー
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 6h8M6 2l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+</body>
+</html>
