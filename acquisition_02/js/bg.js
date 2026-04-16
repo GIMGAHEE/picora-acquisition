@@ -7,11 +7,11 @@
     const H = canvas.height;
     ctx.clearRect(0, 0, W, H);
 
-    // 베이스 배경 - 흰색~연한 블루 그라데이션
+    // 베이스 배경 - 블루 그라데이션
     const bg = ctx.createLinearGradient(0, 0, W, H);
-    bg.addColorStop(0,   '#ffffff');
-    bg.addColorStop(0.4, '#eef4fb');
-    bg.addColorStop(1,   '#d6e8f7');
+    bg.addColorStop(0,   '#e8f2ff');
+    bg.addColorStop(0.5, '#cce0ff');
+    bg.addColorStop(1,   '#b8d4ff');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
@@ -60,13 +60,13 @@
           const cy = (tri[0][1] + tri[1][1] + tri[2][1]) / 3 / H;
           const dist = cx * 0.6 + cy * 0.4;
 
-          // 색상 범위: 흰색~연한 회청색
-          const lightness = 1 - dist * 0.28 + (t - 0.5) * 0.12;
-          const blueAmount = dist * 0.55 + (t - 0.5) * 0.12;
+          // 색상 범위: 연한 블루~진한 블루
+          const lightness = 1 - dist * 0.22 + (t - 0.5) * 0.10;
+          const blueAmount = dist * 0.7 + (t - 0.5) * 0.15;
 
-          const r_ = Math.round(255 * lightness);
-          const g_ = Math.round(255 * lightness - blueAmount * 18);
-          const b_ = Math.round(255 * lightness + blueAmount * 30);
+          const r_ = Math.round(180 * lightness - blueAmount * 40);
+          const g_ = Math.round(210 * lightness - blueAmount * 10);
+          const b_ = Math.round(255 * lightness + blueAmount * 10);
 
           const alpha = 0.35 + t * 0.45;
 
