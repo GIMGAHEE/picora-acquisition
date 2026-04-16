@@ -2,97 +2,77 @@
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
   const COLOR = '#5ba4f5';
-  const ALPHA = 0.32;
+  const ALPHA = 0.28;
 
-  const icons = [
-    // チェックマーク（丸）
+  const shapes = [
+    // 円（大）
     function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.arc(x, y, s*0.48, 0, Math.PI*2); ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x - s*0.22, y + s*0.02);
-      ctx.lineTo(x - s*0.04, y + s*0.22);
-      ctx.lineTo(x + s*0.26, y - s*0.20);
-      ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y, s*0.46, 0, Math.PI*2); ctx.stroke();
     },
-    // 上昇グラフ
+    // 円（小・二重）
     function(ctx, x, y, s) {
-      ctx.beginPath();
-      ctx.moveTo(x - s*0.46, y + s*0.40);
-      ctx.lineTo(x - s*0.46, y - s*0.40);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x - s*0.46, y + s*0.40);
-      ctx.lineTo(x + s*0.46, y + s*0.40);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x - s*0.32, y + s*0.18);
-      ctx.lineTo(x - s*0.08, y - s*0.08);
-      ctx.lineTo(x + s*0.14, y - s*0.22);
-      ctx.lineTo(x + s*0.36, y - s*0.38);
-      ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y, s*0.46, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y, s*0.26, 0, Math.PI*2); ctx.stroke();
     },
-    // コイン（¥）
+    // 正方形
     function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.arc(x, y, s*0.48, 0, Math.PI*2); ctx.stroke();
-      ctx.font = `bold ${s*0.44}px sans-serif`;
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('¥', x, y + 1);
+      ctx.beginPath(); ctx.rect(x-s*0.38, y-s*0.38, s*0.76, s*0.76); ctx.stroke();
     },
-    // シールド
+    // 角丸四角形
+    function(ctx, x, y, s) {
+      ctx.beginPath(); ctx.roundRect(x-s*0.40, y-s*0.40, s*0.80, s*0.80, s*0.16); ctx.stroke();
+    },
+    // 正三角形
     function(ctx, x, y, s) {
       ctx.beginPath();
-      ctx.moveTo(x, y - s*0.50);
-      ctx.lineTo(x + s*0.36, y - s*0.22);
-      ctx.lineTo(x + s*0.36, y + s*0.08);
-      ctx.quadraticCurveTo(x + s*0.36, y + s*0.46, x, y + s*0.52);
-      ctx.quadraticCurveTo(x - s*0.36, y + s*0.46, x - s*0.36, y + s*0.08);
-      ctx.lineTo(x - s*0.36, y - s*0.22);
+      ctx.moveTo(x, y - s*0.46);
+      ctx.lineTo(x + s*0.40, y + s*0.28);
+      ctx.lineTo(x - s*0.40, y + s*0.28);
       ctx.closePath(); ctx.stroke();
     },
-    // 星
+    // 十字
     function(ctx, x, y, s) {
-      const pts = 5, r1 = s*0.48, r2 = s*0.20;
+      ctx.beginPath(); ctx.moveTo(x, y-s*0.46); ctx.lineTo(x, y+s*0.46); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x-s*0.46, y); ctx.lineTo(x+s*0.46, y); ctx.stroke();
+    },
+    // ひし形
+    function(ctx, x, y, s) {
       ctx.beginPath();
-      for (let i = 0; i < pts*2; i++) {
-        const r = i%2===0 ? r1 : r2;
-        const a = (i*Math.PI/pts) - Math.PI/2;
-        i===0 ? ctx.moveTo(x+r*Math.cos(a), y+r*Math.sin(a))
-               : ctx.lineTo(x+r*Math.cos(a), y+r*Math.sin(a));
-      }
+      ctx.moveTo(x, y-s*0.48);
+      ctx.lineTo(x+s*0.34, y);
+      ctx.lineTo(x, y+s*0.48);
+      ctx.lineTo(x-s*0.34, y);
       ctx.closePath(); ctx.stroke();
     },
-    // スマホ
+    // 水平線（短）
     function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.roundRect(x-s*0.36, y-s*0.56, s*0.72, s*1.12, s*0.14); ctx.stroke();
-      ctx.beginPath(); ctx.arc(x, y+s*0.42, s*0.07, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x-s*0.44, y); ctx.lineTo(x+s*0.44, y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x-s*0.28, y-s*0.18); ctx.lineTo(x+s*0.28, y-s*0.18); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x-s*0.28, y+s*0.18); ctx.lineTo(x+s*0.28, y+s*0.18); ctx.stroke();
     },
-    // クレジットカード
+    // プラス（細め）
     function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.roundRect(x-s*0.52, y-s*0.32, s*1.04, s*0.64, s*0.08); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(x-s*0.52, y-s*0.08); ctx.lineTo(x+s*0.52, y-s*0.08); ctx.stroke();
-      ctx.beginPath(); ctx.roundRect(x-s*0.38, y+s*0.06, s*0.28, s*0.14, s*0.04); ctx.stroke();
+      ctx.lineWidth = s * 0.07;
+      ctx.beginPath(); ctx.moveTo(x, y-s*0.38); ctx.lineTo(x, y+s*0.38); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x-s*0.38, y); ctx.lineTo(x+s*0.38, y); ctx.stroke();
     },
-    // 錠前（セキュリティ）
+    // 半円
     function(ctx, x, y, s) {
-      ctx.beginPath(); ctx.roundRect(x-s*0.36, y-s*0.10, s*0.72, s*0.56, s*0.08); ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(x, y-s*0.10, s*0.26, Math.PI, 0);
-      ctx.stroke();
-      ctx.beginPath(); ctx.arc(x, y+s*0.20, s*0.08, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(x, y+s*0.06, s*0.42, Math.PI, 0); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x-s*0.42, y+s*0.06); ctx.lineTo(x+s*0.42, y+s*0.06); ctx.stroke();
     },
   ];
 
-  function drawIcon(iconFn, x, y, size, angle) {
+  function drawShape(shapeFn, x, y, size, angle, alpha) {
     ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-    ctx.globalAlpha = ALPHA;
+    ctx.translate(x, y); ctx.rotate(angle);
+    ctx.globalAlpha = alpha;
     ctx.strokeStyle = COLOR;
     ctx.fillStyle = COLOR;
-    ctx.lineWidth = 1.4;
+    ctx.lineWidth = 1.3;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    iconFn(ctx, 0, 0, size);
+    shapeFn(ctx, 0, 0, size);
     ctx.restore();
   }
 
@@ -101,19 +81,25 @@
     ctx.fillStyle = '#d6e8fa';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const GRID = 90;
-    const ICON_SIZE = 22;
-    let idx = 0;
-    for (let row = 0; row * GRID < canvas.height + GRID; row++) {
-      for (let col = 0; col * GRID < canvas.width + GRID; col++) {
-        const x = col * GRID + (row % 2 === 0 ? 0 : GRID * 0.5);
-        const y = row * GRID;
-        const angle = ((row * 7 + col * 13) % 16 - 8) * (Math.PI / 180) * 3;
-        const iconFn = icons[(row * 3 + col * 5 + idx) % icons.length];
-        drawIcon(iconFn, x, y, ICON_SIZE, angle);
-        idx++;
+    // 2레이어: 작은 것 + 큰 것
+    const layers = [
+      { GRID: 56, SIZE: 14, alphaBase: 0.30 },
+      { GRID: 96, SIZE: 26, alphaBase: 0.18 },
+    ];
+
+    layers.forEach(({ GRID, SIZE, alphaBase }, li) => {
+      let idx = li * 53;
+      for (let row = 0; row * GRID < canvas.height + GRID; row++) {
+        for (let col = 0; col * GRID < canvas.width + GRID; col++) {
+          const x = col * GRID + (row % 2 === 0 ? 0 : GRID * 0.5);
+          const y = row * GRID + (li === 1 ? GRID * 0.48 : 0);
+          const angle = ((row * 11 + col * 7 + li * 19) % 8) * (Math.PI / 4);  // 45도 단위로 깔끔하게
+          const alpha = alphaBase * (0.7 + 0.3 * Math.sin(row * 1.1 + col * 0.7));
+          drawShape(shapes[(row * 3 + col * 7 + idx) % shapes.length], x, y, SIZE, angle, alpha);
+          idx++;
+        }
       }
-    }
+    });
   }
 
   function resize() {
