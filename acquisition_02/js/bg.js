@@ -7,85 +7,74 @@
     const H = canvas.height;
     ctx.clearRect(0, 0, W, H);
 
-    // 베이스 배경 - 거의 흰색에 가까운 연블루
-    const bg = ctx.createLinearGradient(0, 0, W, H);
-    bg.addColorStop(0,   '#ffffff');
-    bg.addColorStop(0.5, '#f0f6ff');
-    bg.addColorStop(1,   '#deeaf8');
-    ctx.fillStyle = bg;
+    // 베이스: 순백색
+    ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, W, H);
 
-    // 로우폴리 삼각형 생성
-    const seed = 42;
-    function rng(n) {
-      let x = Math.sin(n + seed) * 43758.5453;
-      return x - Math.floor(x);
-    }
+    // 오른쪽 하단으로 갈수록 블루그레이가 쌓이는 방향성
+    // 원본처럼 평행사변형/마름모 계열 도형이 대각선 방향으로 겹침
 
-    // 격자 기반 버텍스 생성
-    const COLS = 10;
-    const ROWS = Math.ceil(H / (W / COLS) * 1.2) + 2;
-    const cellW = W / (COLS - 1);
-    const cellH = H / (ROWS - 1);
+    const shapes = [];
+    const seed = (x, y) => {
+      let h = x * 2654435761 ^ y * 2246822519;
+      h = ((h >>> 16) ^ h) * 0x45d9f3b;
+      h = ((h >>> 16) ^ h);
+      return (h >>> 0) / 0xffffffff;
+    };
 
-    // 버텍스 배열 생성 (약간 랜덤 오프셋)
-    const verts = [];
-    for (let r = 0; r < ROWS; r++) {
-      verts.push([]);
-      for (let c = 0; c < COLS; c++) {
-        const jx = (rng(r * 100 + c * 3 + 1) - 0.5) * cellW * 0.6;
-        const jy = (rng(r * 100 + c * 3 + 2) - 0.5) * cellH * 0.6;
-        verts[r].push([
-          c * cellW + jx,
-          r * cellH + jy
-        ]);
+    // 평행사변형 계열을 대각선 방향으로 배치
+    const TILE = Math.min(W, H) * 0.13;
+    const cols = Math.ceil(W / TILE) + 4;
+    const rows = Math.ceil(H / TILE) + 4;
+
+    for (let r = -2; r < rows; r++) {
+      for (let c = -2; c < cols; c++) {
+        const idx = (r + 10) * 100 + (c + 10);
+        const t = seed(c + 50, r + 50);
+        const t2 = seed(c + 80, r + 20);
+
+        // 대각선 방향 위치 (왼쪽위=흰색, 오른쪽아래=블루)
+        const diagRatio = ((c / cols) * 0.6 + (r / rows) * 0.4);
+
+        // 색상: 흰색~회청색~연블루
+        // 원본 이미지 색상 분석: 밝은부분 #f0f4f8, 어두운부분 #9ab5cc
+        const brightness = 1 - diagRatio * 0.55 + (t - 0.5) * 0.15;
+        const blue = diagRatio * 0.6 + (t2 - 0.5) * 0.1;
+
+        const rv = Math.max(0, Math.min(255, Math.round(240 * brightness)));
+        const gv = Math.max(0, Math.min(255, Math.round(248 * brightness - blue * 20)));
+        const bv = Math.max(0, Math.min(255, Math.round(255 * brightness + blue * 8)));
+        const alpha = 0.12 + t * 0.42 + diagRatio * 0.20;
+
+        const x = c * TILE - TILE;
+        const y = r * TILE - TILE;
+
+        // 원본처럼 기울어진 평행사변형 (약 -15도 기울기)
+        const skew = TILE * 0.35;
+        const w = TILE * (0.7 + t2 * 0.6);
+        const h2 = TILE * (0.5 + t * 0.5);
+
+        ctx.save();
+        ctx.globalAlpha = Math.min(0.75, alpha);
+        ctx.fillStyle = `rgb(${rv},${gv},${bv})`;
+        ctx.beginPath();
+        ctx.moveTo(x + skew,      y);
+        ctx.lineTo(x + skew + w,  y);
+        ctx.lineTo(x + w,         y + h2);
+        ctx.lineTo(x,             y + h2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
       }
     }
 
-    // 삼각형 그리기
-    for (let r = 0; r < ROWS - 1; r++) {
-      for (let c = 0; c < COLS - 1; c++) {
-        const v0 = verts[r][c];
-        const v1 = verts[r][c + 1];
-        const v2 = verts[r + 1][c];
-        const v3 = verts[r + 1][c + 1];
-
-        // 각 삼각형마다 색상 결정
-        [[v0, v1, v2], [v1, v3, v2]].forEach((tri, ti) => {
-          const n = r * 20 + c * 2 + ti;
-          const t = rng(n);
-
-          // 위치 기반으로 밝기 변화 (왼쪽위=밝음, 오른쪽아래=파랑)
-          const cx = (tri[0][0] + tri[1][0] + tri[2][0]) / 3 / W;
-          const cy = (tri[0][1] + tri[1][1] + tri[2][1]) / 3 / H;
-          const dist = cx * 0.6 + cy * 0.4;
-
-          // 거의 흰색~아주 연한 블루그레이
-          const lightness = 0.96 - dist * 0.12 + (t - 0.5) * 0.06;
-          const blueAmount = dist * 0.3 + (t - 0.5) * 0.08;
-
-          const r_ = Math.round(255 * lightness - blueAmount * 30);
-          const g_ = Math.round(255 * lightness - blueAmount * 15);
-          const b_ = Math.round(255 * lightness + blueAmount * 8);
-
-          const alpha = 0.18 + t * 0.30;
-
-          ctx.beginPath();
-          ctx.moveTo(tri[0][0], tri[0][1]);
-          ctx.lineTo(tri[1][0], tri[1][1]);
-          ctx.lineTo(tri[2][0], tri[2][1]);
-          ctx.closePath();
-
-          ctx.fillStyle = `rgba(${Math.min(255,r_)},${Math.min(255,g_)},${Math.min(255,b_)},${alpha})`;
-          ctx.fill();
-
-          // 경계선
-          ctx.strokeStyle = `rgba(255,255,255,0.8)`;
-          ctx.lineWidth = 0.4;
-          ctx.stroke();
-        });
-      }
-    }
+    // 왼쪽 상단 흰색 페이드 오버레이
+    const fadeL = ctx.createRadialGradient(W * 0.15, H * 0.2, 0, W * 0.15, H * 0.2, W * 0.55);
+    fadeL.addColorStop(0, 'rgba(255,255,255,0.92)');
+    fadeL.addColorStop(0.5, 'rgba(255,255,255,0.55)');
+    fadeL.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = fadeL;
+    ctx.fillRect(0, 0, W, H);
   }
 
   function resize() {
