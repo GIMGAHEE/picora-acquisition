@@ -14,7 +14,7 @@
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background: transparent;
+  background: url('../images/bg.jpg') center center / cover fixed;
   min-height: 100vh;
 }
 
