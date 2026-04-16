@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PICORA - ポイ活アプリ | 最大2,100ptプレゼント</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --orange: #fc6d34;
+  --orange-light: #fca934;
+  --yellow: #ffe55a;
+  --green-dark: #a8d870;
+  --green-light: #bce86b;
+  --cream: #fff7ca;
+  --gray-dark: #333;
+  --gray-mid: #888;
+  --white: #fff;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #e8f5c8;
+  min-height: 100vh;
+}
+
+/* PC layout: side background + center 390px */
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  background-color: #dff0b8;
+}
+
+
+
+.lp {
+  width: 390px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* ===== MV SECTION ===== */
+.mv {
+  background: linear-gradient(166deg, #bce86b 11%, #ffe55a 46%, #ffcc44 99%);
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mv-bg-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: 
+    radial-gradient(circle at 10% 10%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 30% 25%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 70% 15%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 90% 30%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 50% 5%, #fff 3px, transparent 3px),
+    radial-gradient(circle at 15% 80%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 85% 70%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 40% 90%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 60% 85%, #fff 3px, transparent 3px);
+}
+
+/* coin floats */
+.coin {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: radial-gradient(circle at 35% 35%, #ffe55a, #fca934);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 900;
+  color: #fff;
+  font-size: 14px;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+  animation: floatCoin 3s ease-in-out infinite;
+}
+.coin:nth-child(1) { top: 8%; left: 12%; animation-delay: 0s; font-size:10px; width:28px;height:28px; }
+.coin:nth-child(2) { top: 15%; right: 10%; animation-delay: 0.5s; }
+.coin:nth-child(3) { top: 5%; left: 50%; animation-delay: 1s; width:44px;height:44px;font-size:18px; }
+.coin:nth-child(4) { top: 25%; left: 5%; animation-delay: 1.5s; width:24px;height:24px;font-size:10px; }
+.coin:nth-child(5) { top: 18%; right: 25%; animation-delay: 0.8s; width:30px;height:30px;font-size:12px; }
+
+@keyframes floatCoin {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(10deg); }
+}
+
+.logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-text {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 900;
+  font-size: 52px;
+  letter-spacing: -1px;
+  background: linear-gradient(180deg, #fff 30%, #ffe55a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(3px 4px 0px rgba(200,120,0,0.4));
+  line-height: 1;
+  position: relative;
+}
+
+.logo-text span.pi { color: #fffde0; }
+
+.logo-tagline {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.15);
+  letter-spacing: 0.5px;
+}
+
+/* Point card */
+.point-card {
+  background: #fff;
+  border-radius: 22px;
+  padding: 30px 20px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 8px 28px rgba(245,166,35,0.25);
+}
+
+.point-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--orange-light);
+  text-align: center;
+}
+
+.point-main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+}
+
+.point-saidai {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.saidai-char {
+  width: 30px;
+  height: 30px;
+  background: var(--orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1;
+}
+
+.point-number {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 900;
+  font-size: 84px;
+  line-height: 0.75;
+  background: linear-gradient(180deg, #fca934 0%, #fc6d34 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(4px 6px 0px #ffe55a);
+  position: relative;
+}
+
+.point-pt {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+  color: var(--orange);
+  line-height: 1;
+  filter: drop-shadow(2px 2px 0px #ffe55a);
+  margin-bottom: 14px;
+  margin-left: 2px;
+}
+
+.point-sub {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--orange);
+  text-align: center;
+  padding-top: 10px;
+}
+
+/* CTA button area */
+.cta-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.speech-bubble {
+  background: #fff;
+  border-radius: 30px;
+  padding: 10px 20px;
+  width: 290px;
+  text-align: center;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--orange-light);
+  position: relative;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+}
+
+.cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 70px;
+  background: var(--orange);
+  border: 4px solid #fff;
+  border-radius: 99px;
+  box-shadow: 4px 8px 0px rgba(212,81,30,0.5);
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 900;
+  font-size: 22px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  letter-spacing: 1px;
+}
+
+.cta-btn:hover {
+  transform: translateY(3px);
+  box-shadow: 2px 5px 0px rgba(212,81,30,0.5);
+}
+
+.cta-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0px rgba(212,81,30,0.5);
+}
+
+/* ===== REASON SECTION ===== */
+.reason-section {
+  background: #fff;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.section-title {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  color: var(--gray-dark);
+  text-align: center;
+  width: 100%;
+  text-shadow: 2px 2px 0 var(--yellow);
+}
+
+.section-title span.accent {
+  color: var(--orange-light);
+}
+
+.reason-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  width: 100%;
+}
+
+.reason-card {
+  background: var(--cream);
+  border-radius: 20px;
+  padding: 30px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.reason-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+/* Fallback icons using CSS */
+.reason-icon-wrap {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+}
+
+.reason-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  text-align: center;
+}
+
+.reason-title {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--gray-dark);
+}
+
+.reason-sub {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--gray-mid);
+  line-height: 1.5;
+}
+
+/* ===== STEP SECTION ===== */
+.step-section {
+  background: var(--cream);
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.steps-list::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 44px;
+  bottom: 44px;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--orange-light) 0, var(--orange-light) 8px,
+    transparent 8px, transparent 16px
+  );
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--orange-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 3px 8px rgba(252,169,52,0.4);
+  position: relative;
+  z-index: 1;
+}
+
+.step-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.step-title {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--gray-dark);
+}
+
+.step-sub {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--gray-mid);
+  line-height: 1.5;
+}
+
+/* ===== MV BOTTOM (CTA section) ===== */
+.mv-bottom {
+  background: linear-gradient(168deg, #ffcc44 11%, #ffe55a 64%, #bce86b 99%);
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mv-bottom-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.10;
+  background-image: 
+    radial-gradient(circle at 10% 10%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 70% 15%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 85% 70%, #fff 2px, transparent 2px);
+}
+
+.mv-bottom-label {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: #fff;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--green-dark);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+
+/* ===== PC SIDE DECORATION ===== */
+@media (min-width: 500px) {
+  .page-wrapper {
+    align-items: flex-start;
+  }
+  
+  .lp {
+    box-shadow: 0 0 60px rgba(0,0,0,0.1);
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mv > * {
+  animation: fadeInUp 0.6s ease both;
+}
+.mv > *:nth-child(2) { animation-delay: 0.1s; }
+.mv > *:nth-child(3) { animation-delay: 0.2s; }
+.mv > *:nth-child(4) { animation-delay: 0.35s; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="lp">
+
+    <!-- MV -->
+    <section class="mv">
+      <div class="mv-bg-pattern"></div>
+      <!-- floating coins -->
+      <div class="coin">P</div>
+      <div class="coin">P</div>
+      <div class="coin">P</div>
+      <div class="coin">P</div>
+      <div class="coin">P</div>
+
+      <!-- Logo -->
+      <div class="logo-wrap">
+        <div class="logo-text">PICORA</div>
+        <p class="logo-tagline">毎日コツコツ！カンタンポイ活！</p>
+      </div>
+
+      <!-- Point card -->
+      <div class="point-card">
+        <p class="point-label">今すぐPICORAに登録で</p>
+        <div class="point-main">
+          <div class="point-saidai">
+            <span class="saidai-char">最</span>
+            <span class="saidai-char">大</span>
+          </div>
+          <span class="point-number">2,100</span>
+          <span class="point-pt">pt</span>
+        </div>
+        <p class="point-sub">対象者全員にプレゼント！</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-area">
+        <div class="speech-bubble">かんたん登録！最短30秒でスタート！</div>
+        <a href="#" class="cta-btn">無料ではじめる</a>
+      </div>
+    </section>
+
+    <!-- 選ばれる理由 -->
+    <section class="reason-section">
+      <h2 class="section-title">PICORAが<span class="accent">選ばれる</span>理由</h2>
+      <div class="reason-grid">
+        <div class="reason-card">
+          <div class="reason-icon-wrap">📱</div>
+          <div class="reason-texts">
+            <p class="reason-title">登録最短30秒</p>
+            <p class="reason-sub">メアドだけで即スタート</p>
+          </div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon-wrap">📋</div>
+          <div class="reason-texts">
+            <p class="reason-title">毎日タスク更新</p>
+            <p class="reason-sub">アンケート・アプリDL</p>
+          </div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon-wrap">🎁</div>
+          <div class="reason-texts">
+            <p class="reason-title">25種類以上交換</p>
+            <p class="reason-sub">Amazon・PayPay等</p>
+          </div>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon-wrap">¥0</div>
+          <div class="reason-texts">
+            <p class="reason-title">完全無料</p>
+            <p class="reason-sub">登録費・月額0円</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3ステップ -->
+    <section class="step-section">
+      <h2 class="section-title" style="text-shadow: 2px 2px 0 #fff;">かんたん<span class="accent">3ステップ</span></h2>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-card">
+            <p class="step-title">アプリをダウンロード</p>
+            <p class="step-sub">App Store / Google Play より無料DL</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-card">
+            <p class="step-title">無料会員登録（1分）</p>
+            <p class="step-sub">メールアドレスだけでOK</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-card">
+            <p class="step-title">タスクをこなしてポイントGET</p>
+            <p class="step-sub">好きな時間に、好きなだけ</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MV bottom CTA -->
+    <section class="mv-bottom">
+      <div class="mv-bottom-bg"></div>
+      <!-- floating coins bottom -->
+      <div style="position:absolute;top:8%;right:10%;width:32px;height:32px;background:radial-gradient(circle at 35% 35%,#ffe55a,#fca934);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:900;color:#fff;font-size:12px;box-shadow:0 3px 0 rgba(0,0,0,0.15);animation:floatCoin 3s ease-in-out infinite 0.3s;">P</div>
+      <div style="position:absolute;top:20%;left:8%;width:26px;height:26px;background:radial-gradient(circle at 35% 35%,#ffe55a,#fca934);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'M PLUS Rounded 1c',sans-serif;font-weight:900;color:#fff;font-size:10px;box-shadow:0 3px 0 rgba(0,0,0,0.15);animation:floatCoin 3s ease-in-out infinite 1s;">P</div>
+
+      <p class="mv-bottom-label">＼ おトクにポイ活するなら ／</p>
+      <div class="logo-text" style="font-size:44px;">PICORA</div>
+
+      <!-- Point card -->
+      <div class="point-card">
+        <p class="point-label">今すぐPICORAに登録で</p>
+        <div class="point-main">
+          <div class="point-saidai">
+            <span class="saidai-char">最</span>
+            <span class="saidai-char">大</span>
+          </div>
+          <span class="point-number">2,100</span>
+          <span class="point-pt">pt</span>
+        </div>
+        <p class="point-sub">対象者全員にプレゼント！</p>
+      </div>
+
+      <!-- CTA btn only -->
+      <a href="#" class="cta-btn">無料ではじめる</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>©PICORA</p>
+    </footer>
+
+  </div>
+</div>
+<canvas id="bg-canvas" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  const COLOR = '#8cc84b';
+  const ALPHA = 0.35;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    draw();
+  }
+
+  // 아이콘 드로잉 함수들
+  const icons = [
+    // スマホ
+    function(ctx, x, y, s) {
+      ctx.beginPath();
+      ctx.roundRect(x-s*0.4, y-s*0.6, s*0.8, s*1.2, s*0.12);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x, y+s*0.45, s*0.08, 0, Math.PI*2);
+      ctx.stroke();
+    },
+    // コイン
+    function(ctx, x, y, s) {
+      ctx.beginPath();
+      ctx.arc(x, y, s*0.5, 0, Math.PI*2);
+      ctx.stroke();
+      ctx.font = `bold ${s*0.5}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('P', x, y+1);
+    },
+    // ショッピングバッグ
+    function(ctx, x, y, s) {
+      ctx.beginPath();
+      ctx.roundRect(x-s*0.45, y-s*0.3, s*0.9, s*0.8, s*0.08);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x-s*0.2, y-s*0.3);
+      ctx.quadraticCurveTo(x-s*0.2, y-s*0.7, x, y-s*0.7);
+      ctx.quadraticCurveTo(x+s*0.2, y-s*0.7, x+s*0.2, y-s*0.3);
+      ctx.stroke();
+    },
+    // ギフト
+    function(ctx, x, y, s) {
+      ctx.beginPath();
+      ctx.roundRect(x-s*0.45, y-s*0.15, s*0.9, s*0.65, s*0.06);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.rect(x-s*0.45, y-s*0.3, s*0.9, s*0.18);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x, y-s*0.3);
+      ctx.lineTo(x, y+s*0.5);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x, y-s*0.3);
+      ctx.bezierCurveTo(x-s*0.3, y-s*0.6, x-s*0.5, y-s*0.15, x, y-s*0.15);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x, y-s*0.3);
+      ctx.bezierCurveTo(x+s*0.3, y-s*0.6, x+s*0.5, y-s*0.15, x, y-s*0.15);
+      ctx.stroke();
+    },
+    // クレジットカード
+    function(ctx, x, y, s) {
+      ctx.beginPath();
+      ctx.roundRect(x-s*0.55, y-s*0.35, s*1.1, s*0.7, s*0.08);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x-s*0.55, y-s*0.1);
+      ctx.lineTo(x+s*0.55, y-s*0.1);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.roundRect(x-s*0.42, y+s*0.05, s*0.3, s*0.16, s*0.04);
+      ctx.stroke();
+    },
+    // 星
+    function(ctx, x, y, s) {
+      const pts = 5, r1 = s*0.5, r2 = s*0.22;
+      ctx.beginPath();
+      for (let i = 0; i < pts*2; i++) {
+        const r = i%2===0 ? r1 : r2;
+        const a = (i*Math.PI/pts) - Math.PI/2;
+        i===0 ? ctx.moveTo(x+r*Math.cos(a), y+r*Math.sin(a))
+               : ctx.lineTo(x+r*Math.cos(a), y+r*Math.sin(a));
+      }
+      ctx.closePath();
+      ctx.stroke();
+    },
+    // アンケート用紙
+    function(ctx, x, y, s) {
+      ctx.beginPath();
+      ctx.roundRect(x-s*0.4, y-s*0.6, s*0.8, s*1.2, s*0.06);
+      ctx.stroke();
+      [-0.3, -0.05, 0.2].forEach(dy => {
+        ctx.beginPath();
+        ctx.moveTo(x-s*0.22, y+s*dy);
+        ctx.lineTo(x+s*0.22, y+s*dy);
+        ctx.stroke();
+      });
+    },
+    // 財布
+    function(ctx, x, y, s) {
+      ctx.beginPath();
+      ctx.roundRect(x-s*0.5, y-s*0.35, s, s*0.7, s*0.1);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.roundRect(x+s*0.05, y-s*0.2, s*0.35, s*0.4, s*0.1);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(x+s*0.25, y, s*0.1, 0, Math.PI*2);
+      ctx.stroke();
+    },
+  ];
+
+  function drawIcon(iconFn, x, y, size, angle) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.globalAlpha = ALPHA;
+    ctx.strokeStyle = COLOR;
+    ctx.fillStyle = COLOR;
+    ctx.lineWidth = 1.4;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    iconFn(ctx, 0, 0, size);
+    ctx.restore();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 배경색
+    ctx.fillStyle = '#dff0b8';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // LP 중앙 영역 (390px)에는 그리지 않음
+    const lpLeft = (canvas.width - 390) / 2;
+    const lpRight = lpLeft + 390;
+
+    // 격자 방식으로 아이콘 배치
+    const GRID = 90;
+    const ICON_SIZE = 22;
+    let idx = 0;
+    for (let row = 0; row * GRID < canvas.height + GRID; row++) {
+      for (let col = 0; col * GRID < canvas.width + GRID; col++) {
+        const x = col * GRID + (row % 2 === 0 ? 0 : GRID * 0.5);
+        const y = row * GRID;
+        // LP 중앙은 스킵
+        if (x + ICON_SIZE > lpLeft - 10 && x - ICON_SIZE < lpRight + 10) continue;
+        const angle = ((row * 7 + col * 13) % 16 - 8) * (Math.PI / 180) * 3;
+        const iconFn = icons[(row * 3 + col * 5 + idx) % icons.length];
+        drawIcon(iconFn, x, y, ICON_SIZE, angle);
+        idx++;
+      }
+    }
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+})();
+</script>
+</body>
+</html>
