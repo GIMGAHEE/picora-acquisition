@@ -28,7 +28,6 @@
       100% { transform:scale(1) rotate(0deg); }
     }
     /* Badge wiggle */
-    @keyframes badgeWiggle {
       0%,100% { transform:rotate(-2deg); }
       50%      { transform:rotate(2deg); }
     }
@@ -117,11 +116,6 @@
     }, 3500);
   }
 
-  /* Header banner badge wiggle */
-  const badge = document.querySelector('.header-banner');
-  if (badge) {
-    badge.style.animation = 'badgeWiggle 2s ease-in-out infinite';
-  }
 
   /* Point number count up */
   document.querySelectorAll('.final-point-num, .point-num').forEach(el => {
