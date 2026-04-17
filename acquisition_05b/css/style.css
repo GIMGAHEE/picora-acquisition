@@ -848,7 +848,7 @@ footer--blue { background: var(--blue); }
 
 .mv-ei-big-wrap {
   width: 123px;
-  height: 143px;
+  height: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -862,22 +862,22 @@ footer--blue { background: var(--blue); }
   display: block;
   line-height: 1;
   white-space: nowrap;
-  -webkit-text-stroke: 8px #fff;
+  -webkit-text-stroke: 14px #fff;
   paint-order: stroke fill;
 }
 
 .mv-ei-mark-wrap {
   width: 96px;
-  height: 108px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 90px;
-  margin-top: 52px;
+  margin-left: 70px;
+  margin-top: 0;
 }
 
 .mv-ei-mark {
-  font-size: 80px;
+  font-size: 65px;
   font-weight: 900;
   color: #e60202;
   transform: rotate(13.52deg) skewX(-3.1deg);
@@ -885,7 +885,7 @@ footer--blue { background: var(--blue); }
   line-height: 1;
   letter-spacing: -4px;
   white-space: nowrap;
-  -webkit-text-stroke: 6px #fff;
+  -webkit-text-stroke: 10px #fff;
   paint-order: stroke fill;
 }
 
