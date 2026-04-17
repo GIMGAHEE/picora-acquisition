@@ -868,7 +868,7 @@ footer--blue { background: var(--blue); }
 }
 
 .mv-ei-mark {
-  font-size: 65px;
+  font-size: 70px;
   font-weight: 900;
   color: #e60202;
   transform: rotate(13.52deg) skewX(-3.1deg);
@@ -878,7 +878,8 @@ footer--blue { background: var(--blue); }
   white-space: nowrap;
   -webkit-text-stroke: 10px #fff;
   paint-order: stroke fill;
-  margin-bottom: 8px;
+  margin-left: -10px;
+  margin-bottom: -10px;
 }
 
 .mv-balloon {
