@@ -880,6 +880,8 @@ footer--blue { background: var(--blue); }
   display: block;
   line-height: 1;
   white-space: nowrap;
+  -webkit-text-stroke: 8px #fff;
+  paint-order: stroke fill;
 }
 
 .mv-ei-mark-wrap {
@@ -901,6 +903,8 @@ footer--blue { background: var(--blue); }
   line-height: 1;
   letter-spacing: -4px;
   white-space: nowrap;
+  -webkit-text-stroke: 6px #fff;
+  paint-order: stroke fill;
 }
 
 /* Speech balloon */
