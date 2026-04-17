@@ -3,15 +3,14 @@
   const ctx = canvas.getContext('2d');
   let W, H;
 
-  // 블루 계열 파스텔 버블 + 별
   const COLORS = [
-    '#a8d8ff', '#7ce1e3', '#b3e5fc', '#80cbff',
-    '#c5eeff', '#60b8f5', '#d6f0ff', '#99d6ff',
+    '#a8d8ff', '#7ce1e3', '#b3e5fc',
+    '#80cbff', '#c5eeff', '#60b8f5',
   ];
 
-  const items = [];
+  const bubbles = [];
 
-  function makeItem() {
+  function makeBubble() {
     const lpL = (W - 390) / 2;
     const lpR = lpL + 390;
     let x;
@@ -20,94 +19,89 @@
       ? Math.random() * (lpL - 10)
       : lpR + 10 + Math.random() * (W - lpR - 10);
 
-    const type = Math.random() < 0.6 ? 'bubble' : 'star';
+    const r = 28 + Math.random() * 52; // 크게 28~80px
 
     return {
-      x, y: H + 30,
-      type,
-      size: type === 'bubble' ? 12 + Math.random() * 24 : 8 + Math.random() * 18,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: -(0.3 + Math.random() * 0.6),
-      rot: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.015,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      alpha: 0.30 + Math.random() * 0.35,
+      x,
+      y: H + r + 10,
+      r,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: -(0.18 + Math.random() * 0.28), // 느리게
       wobble: Math.random() * Math.PI * 2,
-      wobbleSpeed: 0.015 + Math.random() * 0.02,
+      wobbleSpeed: 0.008 + Math.random() * 0.012,
+      wobbleAmp: 1.5 + Math.random() * 2.5,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      alpha: 0.18 + Math.random() * 0.22,
       life: 1.0,
-      decay: 0.003 + Math.random() * 0.003,
+      decay: 0.0015 + Math.random() * 0.002,
     };
   }
 
-  function drawBubble(x, y, s, alpha, color) {
+  function drawBubble(b) {
+    const { x, y, r, color, alpha } = b;
     ctx.save();
-    ctx.translate(x, y);
-    ctx.globalAlpha = alpha;
 
-    // 버블 본체
+    // 바깥 테두리 (비누방울 느낌)
     ctx.beginPath();
-    ctx.arc(0, 0, s * 0.5, 0, Math.PI * 2);
-    ctx.fillStyle = color;
-    ctx.fill();
-
-    // 테두리 (살짝)
-    ctx.strokeStyle = 'rgba(255,255,255,0.6)';
-    ctx.lineWidth = 1.2;
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.strokeStyle = color.replace(')', ',0.5)').replace('rgb', 'rgba');
+    ctx.lineWidth = 1.5;
+    ctx.globalAlpha = alpha * 1.2;
     ctx.stroke();
 
-    // 하이라이트
-    ctx.globalAlpha = alpha * 0.55;
-    ctx.fillStyle = '#fff';
+    // 내부 채우기 (반투명)
     ctx.beginPath();
-    ctx.ellipse(-s * 0.12, -s * 0.16, s * 0.12, s * 0.08, -0.5, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.restore();
-  }
-
-  function drawStar(x, y, s, rot, alpha, color) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(rot);
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    const grad = ctx.createRadialGradient(
+      x - r * 0.28, y - r * 0.28, r * 0.05,
+      x, y, r
+    );
+    grad.addColorStop(0, color + 'aa');
+    grad.addColorStop(0.5, color + '44');
+    grad.addColorStop(1, color + '11');
+    ctx.fillStyle = grad;
     ctx.globalAlpha = alpha;
-    ctx.fillStyle = color;
-
-    const pts = 5, r1 = s * 0.5, r2 = s * 0.2;
-    ctx.beginPath();
-    for (let i = 0; i < pts * 2; i++) {
-      const r = i % 2 === 0 ? r1 : r2;
-      const a = (i * Math.PI / pts) - Math.PI / 2;
-      i === 0
-        ? ctx.moveTo(r * Math.cos(a), r * Math.sin(a))
-        : ctx.lineTo(r * Math.cos(a), r * Math.sin(a));
-    }
-    ctx.closePath();
     ctx.fill();
 
-    // 별 하이라이트
-    ctx.globalAlpha = alpha * 0.35;
-    ctx.fillStyle = '#fff';
+    // 상단 하이라이트 (비누방울 광택)
     ctx.beginPath();
-    ctx.ellipse(-s * 0.1, -s * 0.18, s * 0.08, s * 0.05, -0.4, 0, Math.PI * 2);
+    ctx.ellipse(
+      x - r * 0.28, y - r * 0.3,
+      r * 0.22, r * 0.13,
+      -0.5, 0, Math.PI * 2
+    );
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.globalAlpha = alpha * 1.4;
+    ctx.fill();
+
+    // 오른쪽 하단 작은 반사
+    ctx.beginPath();
+    ctx.ellipse(
+      x + r * 0.3, y + r * 0.3,
+      r * 0.08, r * 0.05,
+      0.8, 0, Math.PI * 2
+    );
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.globalAlpha = alpha;
     ctx.fill();
 
     ctx.restore();
   }
 
   function init() {
-    items.length = 0;
-    for (let i = 0; i < 38; i++) {
-      const h = makeItem();
-      h.y = Math.random() * H;
-      h.life = 0.3 + Math.random() * 0.7;
-      items.push(h);
+    bubbles.length = 0;
+    for (let i = 0; i < 22; i++) {
+      const b = makeBubble();
+      b.y = Math.random() * H;
+      b.life = 0.4 + Math.random() * 0.6;
+      bubbles.push(b);
     }
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
-    // 배경 — 아주 연한 블루~흰색
+    // 배경
     const bg = ctx.createLinearGradient(0, 0, 0, H);
     bg.addColorStop(0,   '#f0f8ff');
     bg.addColorStop(0.5, '#eaf4ff');
@@ -115,41 +109,33 @@
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
-    // 연한 도트 패턴
-    ctx.fillStyle = 'rgba(39,127,250,0.05)';
-    const DOT = 28;
-    for (let x = 0; x < W; x += DOT) {
+    // 연한 도트
+    ctx.fillStyle = 'rgba(39,127,250,0.04)';
+    const DOT = 32;
+    for (let x = 0; x < W; x += DOT)
       for (let y = 0; y < H; y += DOT) {
-        ctx.beginPath();
-        ctx.arc(x, y, 2, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2); ctx.fill();
       }
-    }
 
     const t = performance.now() / 1000;
-
-    items.forEach(h => {
-      const wobbleX = Math.sin(h.wobble + t * h.wobbleSpeed * 60) * 3;
-      const a = h.alpha * Math.min(1, h.life * 4);
-      if (h.type === 'bubble') {
-        drawBubble(h.x + wobbleX, h.y, h.size, a, h.color);
-      } else {
-        drawStar(h.x + wobbleX, h.y, h.size, h.rot, a, h.color);
-      }
+    bubbles.forEach(b => {
+      const fadeAlpha = b.alpha * Math.min(1, b.life * 5);
+      const wobbleX = Math.sin(b.wobble + t * b.wobbleSpeed * 60) * b.wobbleAmp;
+      const savedAlpha = b.alpha;
+      b.alpha = fadeAlpha;
+      drawBubble({ ...b, x: b.x + wobbleX });
+      b.alpha = savedAlpha;
     });
-
-    ctx.globalAlpha = 1;
   }
 
   function update() {
-    items.forEach((h, i) => {
-      h.x += h.vx;
-      h.y += h.vy;
-      h.rot += h.rotSpeed;
-      h.wobble += h.wobbleSpeed;
-      h.life -= h.decay;
-      if (h.life <= 0 || h.y < -h.size * 2) {
-        items[i] = makeItem();
+    bubbles.forEach((b, i) => {
+      b.x += b.vx;
+      b.y += b.vy;
+      b.wobble += b.wobbleSpeed;
+      b.life -= b.decay;
+      if (b.life <= 0 || b.y < -b.r * 2) {
+        bubbles[i] = makeBubble();
       }
     });
   }
