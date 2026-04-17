@@ -3,33 +3,15 @@
   const ctx = canvas.getContext('2d');
   let W, H;
 
-  // URLでカラー判定
-  const isBlue = new URLSearchParams(location.search).get('color') === 'blue';
-
-  // 핑크는 하트 80%, 블루는 별/원 위주
-  const SHAPES_PINK = ['heart','heart','heart','heart','heart','star','circle','heart'];
-  const SHAPES_BLUE = ['star','star','circle','diamond','circle','star','heart'];
-  const SHAPES = isBlue ? SHAPES_BLUE : SHAPES_PINK;
-
-  const COLORS_PINK = [
-    'rgba(255,114,162,',
-    'rgba(255,79,139,',
-    'rgba(255,172,204,',
-    'rgba(255,200,225,',
-    'rgba(227,177,246,',
+  // 색상 — 핑크 계열만, 파스텔톤
+  const COLORS = [
+    '#ffb3cc', '#ff80aa', '#ffc8dd', '#ff99bb',
+    '#ffaac5', '#ffd6e7', '#ff72a2', '#ffe0ee',
   ];
-  const COLORS_BLUE = [
-    'rgba(39,127,250,',
-    'rgba(124,225,227,',
-    'rgba(100,180,255,',
-    'rgba(160,200,255,',
-  ];
-  const COLORS = isBlue ? COLORS_BLUE : COLORS_PINK;
-  const BG_COLOR = isBlue ? '#f0f7ff' : '#fff5f8';
 
-  const particles = [];
+  const hearts = [];
 
-  function makeParticle() {
+  function makeHeart() {
     const lpL = (W - 390) / 2;
     const lpR = lpL + 390;
     let x;
@@ -39,98 +21,105 @@
       : lpR + 10 + Math.random() * (W - lpR - 10);
 
     return {
-      x, y: Math.random() * H + H,
+      x,
+      y: H + 30,
+      size: 10 + Math.random() * 22,
       vx: (Math.random() - 0.5) * 0.5,
       vy: -(0.4 + Math.random() * 0.7),
-      size: 10 + Math.random() * 22,
-      shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
+      rot: (Math.random() - 0.5) * 0.4,
+      rotSpeed: (Math.random() - 0.5) * 0.012,
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      alpha: 0.25 + Math.random() * 0.35,
-      rot: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.025,
-      life: Math.random(),
-      decay: 0.0015 + Math.random() * 0.002,
+      alpha: 0.35 + Math.random() * 0.35,
       wobble: Math.random() * Math.PI * 2,
-      wobbleSpeed: 0.02 + Math.random() * 0.03,
+      wobbleSpeed: 0.02 + Math.random() * 0.02,
+      life: 1.0,
+      decay: 0.003 + Math.random() * 0.003,
     };
   }
 
-  function drawHeart(ctx, x, y, s) {
+  function drawHeart(x, y, s, rot, alpha, color) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.moveTo(x, y + s * 0.35);
-    ctx.bezierCurveTo(x - s * 0.55, y + s * 0.05, x - s * 0.55, y - s * 0.45, x, y - s * 0.15);
-    ctx.bezierCurveTo(x + s * 0.55, y - s * 0.45, x + s * 0.55, y + s * 0.05, x, y + s * 0.35);
+    // 하트 경로
+    ctx.moveTo(0, s * 0.25);
+    ctx.bezierCurveTo(-s * 0.5, -s * 0.1, -s * 0.5, -s * 0.55, 0, -s * 0.2);
+    ctx.bezierCurveTo(s * 0.5, -s * 0.55, s * 0.5, -s * 0.1, 0, s * 0.25);
     ctx.fill();
+
+    // 하이라이트 (더 귀엽게)
+    ctx.globalAlpha = alpha * 0.4;
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.ellipse(-s * 0.14, -s * 0.22, s * 0.1, s * 0.07, -0.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
   }
 
-  function drawStar(ctx, x, y, s) {
-    const pts = 5, r1 = s * 0.5, r2 = s * 0.2;
-    ctx.beginPath();
-    for (let i = 0; i < pts * 2; i++) {
-      const r = i % 2 === 0 ? r1 : r2;
-      const a = (i * Math.PI / pts) - Math.PI / 2;
-      i === 0 ? ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a))
-              : ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a));
+  function init() {
+    hearts.length = 0;
+    for (let i = 0; i < 35; i++) {
+      const h = makeHeart();
+      h.y = Math.random() * H; // 처음엔 화면 전체에 분산
+      h.life = 0.3 + Math.random() * 0.7;
+      hearts.push(h);
     }
-    ctx.closePath(); ctx.fill();
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = BG_COLOR;
+
+    // 배경 — 아주 연한 핑크~흰색
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0,   '#fff5f8');
+    bg.addColorStop(0.5, '#fff0f5');
+    bg.addColorStop(1,   '#ffe8f0');
+    ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
-    particles.forEach(p => {
-      ctx.save();
-      ctx.translate(p.x + Math.sin(p.wobble) * 8, p.y);
-      ctx.rotate(p.rot);
-      ctx.globalAlpha = p.alpha * Math.min(1, p.life * 4) * Math.min(1, (1 - p.life) * 8);
-      ctx.fillStyle = p.color + p.alpha + ')';
-
-      switch(p.shape) {
-        case 'heart':
-          drawHeart(ctx, 0, 0, p.size); break;
-        case 'star':
-          drawStar(ctx, 0, 0, p.size); break;
-        case 'circle':
-          ctx.beginPath(); ctx.arc(0, 0, p.size * 0.42, 0, Math.PI * 2); ctx.fill(); break;
-        case 'diamond':
-          ctx.beginPath();
-          ctx.moveTo(0, -p.size * 0.5);
-          ctx.lineTo(p.size * 0.3, 0);
-          ctx.lineTo(0, p.size * 0.5);
-          ctx.lineTo(-p.size * 0.3, 0);
-          ctx.closePath(); ctx.fill(); break;
+    // 아주 연한 도트 패턴
+    ctx.fillStyle = 'rgba(255,114,162,0.06)';
+    const DOT = 28;
+    for (let x = 0; x < W; x += DOT) {
+      for (let y = 0; y < H; y += DOT) {
+        ctx.beginPath();
+        ctx.arc(x, y, 2, 0, Math.PI * 2);
+        ctx.fill();
       }
-      ctx.restore();
+    }
+
+    const t = performance.now() / 1000;
+
+    // 하트 렌더링
+    hearts.forEach(h => {
+      const wobbleX = Math.sin(h.wobble + t * h.wobbleSpeed * 60) * 3;
+      drawHeart(
+        h.x + wobbleX, h.y,
+        h.size, h.rot,
+        h.alpha * Math.min(1, h.life * 4),
+        h.color
+      );
     });
+
     ctx.globalAlpha = 1;
   }
 
   function update() {
-    particles.forEach((p, i) => {
-      p.x  += p.vx;
-      p.y  += p.vy;
-      p.rot += p.rotSpeed;
-      p.wobble += p.wobbleSpeed;
-      p.life -= p.decay;
+    hearts.forEach((h, i) => {
+      h.x  += h.vx;
+      h.y  += h.vy;
+      h.rot += h.rotSpeed;
+      h.wobble += h.wobbleSpeed;
+      h.life -= h.decay;
 
-      if (p.life <= 0 || p.y < -40) {
-        particles[i] = makeParticle();
-        particles[i].y = H + 20;
-        particles[i].life = 0.05;
+      if (h.life <= 0 || h.y < -h.size * 2) {
+        hearts[i] = makeHeart();
       }
     });
-  }
-
-  function init() {
-    particles.length = 0;
-    for (let i = 0; i < 50; i++) {
-      const p = makeParticle();
-      p.y = Math.random() * H;  // 초기 분산
-      p.life = Math.random();
-      particles.push(p);
-    }
   }
 
   let last = 0;
