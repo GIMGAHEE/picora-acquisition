@@ -143,17 +143,25 @@ body {
 .mv-catch-line {
   display: inline-block;
   background: #fff;
-  padding: 0 20px;
+  padding: 2px 20px 4px;
   font-size: 46px;
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.3;
+}
+
+.mv-catch-line--pink span {
+  background-image: var(--pink-grad);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.mv-catch-line--pink { background-image: var(--pink-grad); }
-.mv-catch-line--blue { background-image: var(--blue-grad); }
+.mv-catch-line--blue span {
+  background-image: var(--blue-grad);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}.mv-catch-line--blue { background-image: var(--blue-grad); }
 
 /* 吹き出し */
 .mv-balloon {
