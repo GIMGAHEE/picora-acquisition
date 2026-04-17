@@ -845,7 +845,7 @@ footer--blue { background: var(--blue); }
 }
 
 .mv-catch-text {
-  font-size: 46px;
+  font-size: 36px;
   font-weight: 900;
   white-space: nowrap;
   background-clip: text;
