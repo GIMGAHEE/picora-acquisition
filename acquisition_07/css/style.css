@@ -123,19 +123,6 @@ body {
   bottom: 100px; left: -60px;
 }
 
-.mv-person {
-  position: absolute;
-  right: -10px;
-  bottom: 120px;
-  width: 220px;
-  filter: drop-shadow(0 0 20px rgba(255,45,122,0.6)) drop-shadow(0 0 40px rgba(255,45,122,0.3));
-  animation: personFloat 4s ease-in-out infinite;
-}
-
-@keyframes personFloat {
-  0%,100% { transform: translateY(0px); }
-  50%      { transform: translateY(-12px); }
-}
 
 .mv-content {
   position: relative;
