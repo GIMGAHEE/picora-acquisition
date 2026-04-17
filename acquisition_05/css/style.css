@@ -864,12 +864,13 @@ footer--blue { background: var(--blue); }
   left: 13px;
 }
 
-.mv-ei-big-wrap {
-  width: 123px;
-  height: 110px;
+.mv-ei {
+  position: absolute;
+  top: 205px;
+  left: 13px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  gap: 4px;
 }
 
 .mv-ei-big {
@@ -877,21 +878,11 @@ footer--blue { background: var(--blue); }
   font-weight: 900;
   color: var(--red);
   transform: rotate(-6deg);
-  display: block;
+  display: inline-block;
   line-height: 1;
   white-space: nowrap;
   -webkit-text-stroke: 14px #fff;
   paint-order: stroke fill;
-}
-
-.mv-ei-mark-wrap {
-  width: 96px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 70px;
-  margin-top: 0;
 }
 
 .mv-ei-mark {
@@ -899,12 +890,13 @@ footer--blue { background: var(--blue); }
   font-weight: 900;
   color: var(--red);
   transform: rotate(13.52deg) skewX(-3.1deg);
-  display: block;
+  display: inline-block;
   line-height: 1;
   letter-spacing: -4px;
   white-space: nowrap;
   -webkit-text-stroke: 10px #fff;
   paint-order: stroke fill;
+  margin-bottom: 8px;
 }
 
 /* Speech balloon */
