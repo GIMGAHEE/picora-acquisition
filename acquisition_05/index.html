@@ -26,59 +26,67 @@
     <span>対象者全員にプレゼント！</span>
   </div>
 
-  <!-- MV — Figma 구조 그대로 -->
-  <section style="position:relative;width:390px;overflow:hidden;background:#fff;">
-    <!-- 배경 전체 -->
+  <!-- MV — Figma 1:1 -->
+  <section style="position:relative;width:390px;overflow:hidden;">
+
+    <!-- 배경 레이어 -->
     <div style="position:absolute;inset:0;pointer-events:none;">
       <div style="position:absolute;inset:0;background:#fff;"></div>
-      <img src="https://www.figma.com/api/mcp/asset/227e2e8d-bcb6-4a78-b512-6bf96b903e4b" alt=""
+      <img src="https://www.figma.com/api/mcp/asset/dbd55485-bd51-4a16-bc8e-80dd1ec81905" alt=""
         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none;">
-      <!-- 인물 — 피그마 원본 left:76.23% top:22.49% w:49.95% h:43.95% -->
       <div style="position:absolute;inset:0;overflow:hidden;">
-        <img src="https://www.figma.com/api/mcp/asset/4b01ef5a-0392-4d04-9d3b-08889dd69de5" alt=""
-          style="position:absolute;left:76.23%;top:22.49%;width:49.95%;height:43.95%;max-width:none;object-fit:contain;">
+        <img src="https://www.figma.com/api/mcp/asset/07e45e73-0088-4608-a90a-cb9b5b912efb" alt=""
+          style="position:absolute;left:76.23%;top:22.49%;width:49.95%;height:43.95%;max-width:none;">
       </div>
     </div>
 
-    <!-- 컨텐츠 래퍼 (padding 40px) -->
+    <!-- コンテンツ: padding 40px, min-height로 CTA 공간 확보 -->
     <div style="position:relative;padding:40px 0;min-height:630px;">
 
-      <!-- キャッチコピー top:0 -->
-      <div style="position:absolute;top:0;left:0;display:flex;flex-direction:column;gap:10px;z-index:2;">
-        <div style="background:#fff;padding:2px 20px 4px;display:inline-block;">
-          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,#e3b1f6 0%,#ff4f8b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PICORAなら、</span>
+      <!-- テキスト: mt=0 → top:0, ml=0 → left:0 -->
+      <div style="position:absolute;top:0;left:0;display:flex;flex-direction:column;gap:10px;">
+        <div style="background:#fff;display:inline-flex;align-items:center;padding:2px 20px 4px;">
+          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,rgb(227,177,246) 0%,rgb(255,79,139) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">PICORAなら、</span>
         </div>
-        <div style="background:#fff;padding:2px 20px 4px;display:inline-block;">
-          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,#e3b1f6 0%,#ff4f8b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">稼げるのに</span>
+        <div style="background:#fff;display:inline-flex;align-items:center;padding:2px 20px 4px;">
+          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,rgb(227,177,246) 0%,rgb(255,79,139) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">稼げるのに</span>
         </div>
-        <div style="background:#fff;padding:2px 20px 4px;display:inline-block;">
-          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,#e3b1f6 0%,#ff4f8b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">やってないの？</span>
+        <div style="background:#fff;display:inline-flex;align-items:center;padding:2px 20px 4px;">
+          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,rgb(227,177,246) 0%,rgb(255,79,139) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">やってないの？</span>
         </div>
       </div>
 
-      <!-- え!? top:205px left:13px -->
-      <div style="position:absolute;top:205px;left:13px;pointer-events:none;z-index:1;">
-        <div style="display:flex;width:123px;height:143px;align-items:center;justify-content:center;">
+      <!-- え!?: mt=205px, ml=13px -->
+      <div style="position:absolute;top:205px;left:13px;">
+        <!-- え: w=123px h=143px, rotate(-6deg) -->
+        <div style="width:123px;height:143px;display:flex;align-items:center;justify-content:center;">
           <span style="font-size:110px;font-weight:900;color:#e60202;transform:rotate(-6deg);display:block;line-height:1;white-space:nowrap;">え</span>
         </div>
-        <div style="display:flex;width:97px;height:109px;align-items:center;justify-content:center;margin-left:91px;margin-top:-40px;">
+        <!-- !?: ml=90px mt=52px w=96px h=108px, rotate(13.52deg) skewX(-3.1deg) -->
+        <div style="width:96px;height:108px;display:flex;align-items:center;justify-content:center;margin-left:90px;margin-top:52px;">
           <span style="font-size:80px;font-weight:900;color:#e60202;transform:rotate(13.52deg) skewX(-3.1deg);display:block;line-height:1;letter-spacing:-4px;white-space:nowrap;">!?</span>
         </div>
       </div>
 
-      <!-- 吹き出し top:355px left:19px -->
-      <div style="position:absolute;top:355px;left:19px;z-index:3;">
-        <div style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:12px solid #fff;margin-left:208px;"></div>
-        <div style="background:#fff;border-radius:70px;padding:6px 30px;display:inline-flex;align-items:center;gap:2px;font-size:24px;font-weight:900;white-space:nowrap;margin-top:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);">
+      <!-- 吹き出し: mt=355px ml=19px -->
+      <div style="position:absolute;top:355px;left:19px;">
+        <!-- 화살표: ml=207px -->
+        <div style="width:41px;height:42px;display:flex;align-items:center;justify-content:center;margin-left:207px;">
+          <div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:14px solid #fff;transform:rotate(40deg);"></div>
+        </div>
+        <!-- 말풍선 본체: mt=24px -->
+        <div style="background:#fff;border-radius:70px;padding:6px 30px;display:inline-flex;align-items:center;gap:2px;font-size:24px;font-weight:900;white-space:nowrap;margin-top:24px;">
           <span style="color:#e60202;line-height:40px;">月5万円</span>
           <span style="color:#ff72a2;line-height:40px;">も稼げるの！？</span>
         </div>
       </div>
 
-      <!-- CTA top:490px -->
-      <div style="position:absolute;top:490px;left:0;width:390px;display:flex;flex-direction:column;align-items:center;height:100px;">
-        <div style="background:#fff;border:2px solid rgba(255,157,0,0.6);border-radius:40px;padding:6px 14px;font-size:12px;font-weight:700;color:#f54c43;white-space:nowrap;position:relative;z-index:2;">登録費・月額費0円！かんたん登録最短30秒！</div>
-        <a href="#" class="cta-btn" style="position:absolute;bottom:0;">今すぐ無料ではじめる</a>
+      <!-- CTAエリア: mt=490px -->
+      <div style="position:absolute;top:490px;left:0;width:390px;height:100px;display:flex;flex-direction:column;align-items:center;">
+        <!-- バッジ: ml=36px mt=0 -->
+        <div style="background:#fff;border:2px solid rgba(255,157,0,0.6);border-radius:40px;padding:6px 14px;font-size:12px;font-weight:700;color:#f54c43;white-space:nowrap;margin-left:36px;align-self:flex-start;">登録費・月額費0円！かんたん登録最短30秒！</div>
+        <!-- ボタン: mt=10px w=350px h=90px -->
+        <a href="#" class="cta-btn" style="margin-top:10px;">今すぐ無料ではじめる</a>
       </div>
 
     </div>
