@@ -814,11 +814,11 @@ footer--blue { background: var(--blue); }
 
 .mv-person-img {
   position: absolute;
-  left: 76.23%;
-  top: 22.49%;
-  width: 49.95%;
-  height: 43.95%;
+  right: -20px;
+  top: 18%;
+  width: 55%;
   max-width: none;
+  object-fit: contain;
 }
 
 .mv-content {
