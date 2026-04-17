@@ -8,10 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* カラーバリエーション切り替え — デフォルト: ピンク */
-    /* URLに ?color=blue で青バージョン */
-  </style>
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -19,53 +15,75 @@
 <div class="page-wrapper">
 <div class="lp" id="lp">
 
-  <!-- ヘッダーバナー -->
+  <!-- Header banner -->
   <div class="header-banner header-banner--blue" id="header-banner">
     <span>今すぐ登録で最大</span>
-    <span class="pt-text" id="pt-text">2,100pt</span>
+    <span class="pt-text pt-text--blue">2,100pt</span>
     <span>対象者全員にプレゼント！</span>
   </div>
 
-  <!-- MV -->
-  <section class="mv" id="mv-section" style="min-height:640px;">
-    <div class="mv-bg">
-      <img src="https://www.figma.com/api/mcp/asset/9eb57d08-3139-41b9-aa48-d6c3ec1f790e" alt="" id="mv-bg-img" style="opacity:0.7;">
-    </div>
-
-    <!-- キャッチコピー (最上部) -->
-    <div style="position:absolute;top:0;left:0;z-index:2;">
-      <div style="display:inline-block;background:#fff;padding:0 20px;font-size:46px;font-weight:900;line-height:1.2;background-image:linear-gradient(90deg,#7ce1e3 0%,#277ffa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">PICORAなら、</div><br>
-      <div style="display:inline-block;background:#fff;padding:0 20px;font-size:46px;font-weight:900;line-height:1.2;background-image:linear-gradient(90deg,#7ce1e3 0%,#277ffa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">稼げるのに</div><br>
-      <div style="display:inline-block;background:#fff;padding:0 20px;font-size:46px;font-weight:900;line-height:1.2;background-image:linear-gradient(90deg,#7ce1e3 0%,#277ffa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">やってないの？</div>
-    </div>
-
-    <!-- え!? -->
-    <div class="mv-ei">
-      <span class="mv-ei-big">え</span>
-      <span class="mv-ei-mark">!?</span>
-    </div>
-
-    <!-- 吹き出し -->
-    <div class="mv-balloon">
-      <div class="mv-balloon-arrow"></div>
-      <div class="mv-balloon-body">
-        <span style="color:#e60202">月5万円</span>
-        <span style="color:#277ffa">も稼げるの！？</span>
+  <!-- MV section -->
+  <section class="mv-section">
+    <!-- Background layer -->
+    <div class="mv-bg-layer">
+      <div class="mv-bg-white"></div>
+      <img class="mv-bg-img mv-bg-img--blue" src="https://www.figma.com/api/mcp/asset/9eb57d08-3139-41b9-aa48-d6c3ec1f790e" alt="">
+      <div class="mv-person-wrap">
+        <img class="mv-person-img" src="https://www.figma.com/api/mcp/asset/60284676-6495-40a4-bd80-3c9c9cc50727" alt="">
       </div>
     </div>
 
-    <!-- CTA -->
-    <div class="cta-wrap" style="margin-top:490px;">
-      <div class="cta-badge">登録費・月額費0円！かんたん登録最短30秒！</div>
-      <a href="#" class="cta-btn">今すぐ無料ではじめる</a>
+    <!-- Content -->
+    <div class="mv-content">
+
+      <!-- Catch copy -->
+      <div class="mv-catch">
+        <div class="mv-catch-box">
+          <span class="mv-catch-text mv-catch-text--blue">PICORAなら、</span>
+        </div>
+        <div class="mv-catch-box">
+          <span class="mv-catch-text mv-catch-text--blue">稼げるのに</span>
+        </div>
+        <div class="mv-catch-box">
+          <span class="mv-catch-text mv-catch-text--blue">やってないの？</span>
+        </div>
+      </div>
+
+      <!-- Exclamation: え!? -->
+      <div class="mv-ei">
+        <div class="mv-ei-big-wrap">
+          <span class="mv-ei-big">え</span>
+        </div>
+        <div class="mv-ei-mark-wrap">
+          <span class="mv-ei-mark">!?</span>
+        </div>
+      </div>
+
+      <!-- Speech balloon -->
+      <div class="mv-balloon">
+        <div class="mv-balloon-arrow-wrap">
+          <div class="mv-balloon-arrow"></div>
+        </div>
+        <div class="mv-balloon-body">
+          <span class="mv-balloon-red">月5万円</span>
+          <span class="mv-balloon-blue">も稼げるの！？</span>
+        </div>
+      </div>
+
+      <!-- CTA area -->
+      <div class="mv-cta">
+        <div class="cta-badge">登録費・月額費0円！かんたん登録最短30秒！</div>
+        <a href="#" class="cta-btn">今すぐ無料ではじめる</a>
+      </div>
+
     </div>
   </section>
 
-  <!-- 選ばれる理由 -->
+  <!-- Reasons section -->
   <section class="reason-section reason-section--blue" id="reason-section">
     <div class="sec-heading sec-heading--blue">
       <span class="text--white">選ばれる</span>
-      <span class="num num--blue" style="color:#0261e6;">4</span>
+      <span class="num num--blue">4</span>
       <span class="text--white">つの理由</span>
     </div>
     <div class="reason-grid">
@@ -88,18 +106,18 @@
     </div>
   </section>
 
-  <!-- 3ステップ -->
-  <section class="step-section step-section--dots-pink" id="step-section">
+  <!-- How to start: 3 steps -->
+  <section class="step-section" id="step-section">
     <div class="sec-heading--blue-round sec-heading">
       <span class="text--white">はじめかた</span>
-      <span class="num" style="color:#0261e6;font-size:40px;">3</span>
+      <span class="num num--step-blue">3</span>
       <span class="text--white">ステップ</span>
     </div>
     <div class="step-list" id="step-list">
       <div class="step-item">
         <div class="step-num step-num--blue">1</div>
         <div class="step-arrow step-arrow--blue"></div>
-        <div class="step-card--blue">
+        <div class="step-card step-card--blue">
           <p class="step-title">アプリをダウンロード</p>
           <p class="step-sub">App Store / Google Play より無料DL</p>
         </div>
@@ -107,7 +125,7 @@
       <div class="step-item">
         <div class="step-num step-num--blue">2</div>
         <div class="step-arrow step-arrow--blue"></div>
-        <div class="step-card--blue">
+        <div class="step-card step-card--blue">
           <p class="step-title">無料会員登録（1分）</p>
           <p class="step-sub">メールアドレスだけでOK</p>
         </div>
@@ -115,7 +133,7 @@
       <div class="step-item">
         <div class="step-num step-num--blue">3</div>
         <div class="step-arrow step-arrow--blue"></div>
-        <div class="step-card--blue">
+        <div class="step-card step-card--blue">
           <p class="step-title">タスクをこなしてポイントGET</p>
           <p class="step-sub">好きな時間に、好きなだけ</p>
         </div>
@@ -128,18 +146,18 @@
     </div>
   </section>
 
-  <!-- 1日シミュレーション -->
+  <!-- Daily simulation -->
   <section class="sim-section sim-section--blue" id="sim-section">
-    <div class="sec-heading sec-heading--blue" style="position:relative;flex-direction:column;gap:0;">
-      <div class="sim-balloon" style="position:absolute;top:10px;left:50%;transform:translateX(10px);">
-        <span class="sim-balloon-num sim-balloon-num--blue">30</span><span class="sim-balloon-unit sim-balloon-num--blue">分</span>
+    <div class="sec-heading sec-heading--blue sim-heading">
+      <div class="sim-balloon">
+        <span class="sim-balloon-num sim-balloon-num--blue">30</span>
+        <span class="sim-balloon-unit sim-balloon-num--blue">分</span>
       </div>
-      <div style="display:flex;align-items:center;gap:4px;font-weight:900;margin-top:28px;">
-        <span style="font-size:40px;color:#0261e6;font-weight:900;">1</span>
-        <span style="font-size:28px;color:#fff;font-weight:900;">日シミュレーション</span>
+      <div class="sim-heading-text">
+        <span class="sim-heading-num--blue">1</span>
+        <span class="sim-heading-label">日シミュレーション</span>
       </div>
     </div>
-
     <div class="sim-table">
       <div class="sim-table-header sim-table-header--blue">Daily missions</div>
       <div class="sim-row">
@@ -147,7 +165,7 @@
           <span class="sim-row-label">初回アプリダウンロード</span>
           <span class="sim-time-badge sim-time-badge--blue">30秒〜1分</span>
         </div>
-        <span class="sim-pt--grad-pink">100pt</span>
+        <span class="sim-pt--grad-blue">100pt</span>
       </div>
       <div class="sim-row">
         <div class="sim-row-left">
@@ -168,15 +186,13 @@
           <span class="sim-row-label">1日合計</span>
           <span class="sim-time-badge sim-time-badge--blue">30分</span>
         </div>
-        <span class="sim-pt--total-pink">1,100pt</span>
+        <span class="sim-pt--total-blue">1,100pt</span>
       </div>
     </div>
-
     <div class="sim-arrow">
       <div class="sim-arrow-triangle sim-arrow-triangle--blue"></div>
       <p class="sim-arrow-text">さらに！なんと！</p>
     </div>
-
     <div class="sim-bonus sim-bonus--blue">
       <p class="sim-bonus-text">PICORA内で<span class="sim-highlight--blue">3か月以内に5,000pt以上</span>ポイントを貯めると、初回登録特典として…</p>
       <div class="sim-bonus-pt--blue">2,000pt</div>
@@ -201,11 +217,10 @@
     </div>
   </section>
 
-  <footer style="background:#277ffa;"><p>©PICORA</p></footer>
+  <footer class="footer footer--blue"><p>©PICORA</p></footer>
 
 </div>
 </div>
-
 
 <script src="js/bg.js"></script>
 </body>

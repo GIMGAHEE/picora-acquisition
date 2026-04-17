@@ -8,10 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* カラーバリエーション切り替え — デフォルト: ピンク */
-    /* URLに ?color=blue で青バージョン */
-  </style>
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -19,84 +15,75 @@
 <div class="page-wrapper">
 <div class="lp" id="lp">
 
-  <!-- ヘッダーバナー -->
+  <!-- Header banner -->
   <div class="header-banner header-banner--pink" id="header-banner">
     <span>今すぐ登録で最大</span>
     <span class="pt-text" id="pt-text">2,100pt</span>
     <span>対象者全員にプレゼント！</span>
   </div>
 
-  <!-- MV — Figma 1:1 -->
-  <section style="position:relative;width:390px;overflow:hidden;">
-
-    <!-- 배경 레이어 -->
-    <div style="position:absolute;inset:0;pointer-events:none;">
-      <div style="position:absolute;inset:0;background:#fff;"></div>
-      <img src="https://www.figma.com/api/mcp/asset/dbd55485-bd51-4a16-bc8e-80dd1ec81905" alt=""
-        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none;">
-      <div style="position:absolute;inset:0;overflow:hidden;">
-        <img src="https://www.figma.com/api/mcp/asset/07e45e73-0088-4608-a90a-cb9b5b912efb" alt=""
-          style="position:absolute;left:76.23%;top:22.49%;width:49.95%;height:43.95%;max-width:none;">
+  <!-- MV -->
+  <section class="mv-section">
+    <!-- Background layer -->
+    <div class="mv-bg-layer">
+      <div class="mv-bg-white"></div>
+      <img class="mv-bg-img" src="https://www.figma.com/api/mcp/asset/dbd55485-bd51-4a16-bc8e-80dd1ec81905" alt="">
+      <div class="mv-person-wrap">
+        <img class="mv-person-img" src="https://www.figma.com/api/mcp/asset/07e45e73-0088-4608-a90a-cb9b5b912efb" alt="">
       </div>
     </div>
 
-    <!-- コンテンツ: padding 40px, min-height로 CTA 공간 확보 -->
-    <div style="position:relative;padding:40px 0;min-height:630px;">
+    <!-- Content -->
+    <div class="mv-content">
 
-      <!-- テキスト: mt=0 → top:0, ml=0 → left:0 -->
-      <div style="position:absolute;top:0;left:0;display:flex;flex-direction:column;gap:10px;">
-        <div style="background:#fff;display:inline-flex;align-items:center;padding:2px 20px 4px;">
-          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,rgb(227,177,246) 0%,rgb(255,79,139) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">PICORAなら、</span>
+      <!-- Catch copy -->
+      <div class="mv-catch">
+        <div class="mv-catch-box">
+          <span class="mv-catch-text mv-catch-text--pink">PICORAなら、</span>
         </div>
-        <div style="background:#fff;display:inline-flex;align-items:center;padding:2px 20px 4px;">
-          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,rgb(227,177,246) 0%,rgb(255,79,139) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">稼げるのに</span>
+        <div class="mv-catch-box">
+          <span class="mv-catch-text mv-catch-text--pink">稼げるのに</span>
         </div>
-        <div style="background:#fff;display:inline-flex;align-items:center;padding:2px 20px 4px;">
-          <span style="font-size:46px;font-weight:900;white-space:nowrap;background:linear-gradient(90deg,rgb(227,177,246) 0%,rgb(255,79,139) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">やってないの？</span>
+        <div class="mv-catch-box">
+          <span class="mv-catch-text mv-catch-text--pink">やってないの？</span>
         </div>
       </div>
 
-      <!-- え!?: mt=205px, ml=13px -->
-      <div style="position:absolute;top:205px;left:13px;">
-        <!-- え: w=123px h=143px, rotate(-6deg) -->
-        <div style="width:123px;height:143px;display:flex;align-items:center;justify-content:center;">
-          <span style="font-size:110px;font-weight:900;color:#e60202;transform:rotate(-6deg);display:block;line-height:1;white-space:nowrap;">え</span>
+      <!-- Exclamation: え!? -->
+      <div class="mv-ei">
+        <div class="mv-ei-big-wrap">
+          <span class="mv-ei-big">え</span>
         </div>
-        <!-- !?: ml=90px mt=52px w=96px h=108px, rotate(13.52deg) skewX(-3.1deg) -->
-        <div style="width:96px;height:108px;display:flex;align-items:center;justify-content:center;margin-left:90px;margin-top:52px;">
-          <span style="font-size:80px;font-weight:900;color:#e60202;transform:rotate(13.52deg) skewX(-3.1deg);display:block;line-height:1;letter-spacing:-4px;white-space:nowrap;">!?</span>
+        <div class="mv-ei-mark-wrap">
+          <span class="mv-ei-mark">!?</span>
         </div>
       </div>
 
-      <!-- 吹き出し: mt=355px ml=19px -->
-      <div style="position:absolute;top:355px;left:19px;">
-        <!-- 화살표: ml=207px -->
-        <div style="width:41px;height:42px;display:flex;align-items:center;justify-content:center;margin-left:207px;">
-          <div style="width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:14px solid #fff;transform:rotate(40deg);"></div>
+      <!-- Speech bubble -->
+      <div class="mv-balloon">
+        <div class="mv-balloon-arrow-wrap">
+          <div class="mv-balloon-arrow"></div>
         </div>
-        <!-- 말풍선 본체: mt=24px -->
-        <div style="background:#fff;border-radius:70px;padding:6px 30px;display:inline-flex;align-items:center;gap:2px;font-size:24px;font-weight:900;white-space:nowrap;margin-top:24px;">
-          <span style="color:#e60202;line-height:40px;">月5万円</span>
-          <span style="color:#ff72a2;line-height:40px;">も稼げるの！？</span>
+        <div class="mv-balloon-body">
+          <span class="mv-balloon-red">月5万円</span>
+          <span class="mv-balloon-pink">も稼げるの！？</span>
         </div>
       </div>
 
-      <!-- CTAエリア: mt=490px -->
-      <div style="position:absolute;top:490px;left:0;width:390px;height:100px;display:flex;flex-direction:column;align-items:center;">
-        <!-- バッジ: ml=36px mt=0 -->
-        <div style="background:#fff;border:2px solid rgba(255,157,0,0.6);border-radius:40px;padding:6px 14px;font-size:12px;font-weight:700;color:#f54c43;white-space:nowrap;margin-left:36px;align-self:flex-start;">登録費・月額費0円！かんたん登録最短30秒！</div>
-        <!-- ボタン: mt=10px w=350px h=90px -->
-        <a href="#" class="cta-btn" style="margin-top:10px;">今すぐ無料ではじめる</a>
+      <!-- CTA area -->
+      <div class="mv-cta">
+        <div class="cta-badge">登録費・月額費0円！かんたん登録最短30秒！</div>
+        <a href="#" class="cta-btn">今すぐ無料ではじめる</a>
       </div>
 
     </div>
   </section>
 
-  <!-- 選ばれる理由 -->
+  <!-- Reasons section -->
   <section class="reason-section reason-section--pink" id="reason-section">
     <div class="sec-heading sec-heading--pink">
       <span class="text--white">選ばれる</span>
-      <span class="num num--pink" style="color:#ff4f8b;">4</span>
+      <span class="num num--pink">4</span>
       <span class="text--white">つの理由</span>
     </div>
     <div class="reason-grid">
@@ -119,18 +106,18 @@
     </div>
   </section>
 
-  <!-- 3ステップ -->
-  <section class="step-section step-section--dots-pink" id="step-section">
+  <!-- How to start: 3 steps -->
+  <section class="step-section" id="step-section">
     <div class="sec-heading--pink-round sec-heading">
       <span class="text--white">はじめかた</span>
-      <span class="num" style="color:#ff4f8b;font-size:40px;">3</span>
+      <span class="num num--step-pink">3</span>
       <span class="text--white">ステップ</span>
     </div>
     <div class="step-list" id="step-list">
       <div class="step-item">
         <div class="step-num step-num--pink">1</div>
         <div class="step-arrow step-arrow--pink"></div>
-        <div class="step-card--pink">
+        <div class="step-card step-card--pink">
           <p class="step-title">アプリをダウンロード</p>
           <p class="step-sub">App Store / Google Play より無料DL</p>
         </div>
@@ -138,7 +125,7 @@
       <div class="step-item">
         <div class="step-num step-num--pink">2</div>
         <div class="step-arrow step-arrow--pink"></div>
-        <div class="step-card--pink">
+        <div class="step-card step-card--pink">
           <p class="step-title">無料会員登録（1分）</p>
           <p class="step-sub">メールアドレスだけでOK</p>
         </div>
@@ -146,7 +133,7 @@
       <div class="step-item">
         <div class="step-num step-num--pink">3</div>
         <div class="step-arrow step-arrow--pink"></div>
-        <div class="step-card--pink">
+        <div class="step-card step-card--pink">
           <p class="step-title">タスクをこなしてポイントGET</p>
           <p class="step-sub">好きな時間に、好きなだけ</p>
         </div>
@@ -159,18 +146,18 @@
     </div>
   </section>
 
-  <!-- 1日シミュレーション -->
+  <!-- Daily simulation -->
   <section class="sim-section sim-section--pink" id="sim-section">
-    <div class="sec-heading sec-heading--pink" style="position:relative;flex-direction:column;gap:0;">
-      <div class="sim-balloon" style="position:absolute;top:10px;left:50%;transform:translateX(10px);">
-        <span class="sim-balloon-num sim-balloon-num--pink">30</span><span class="sim-balloon-unit sim-balloon-num--pink">分</span>
+    <div class="sec-heading sec-heading--pink sim-heading">
+      <div class="sim-balloon">
+        <span class="sim-balloon-num sim-balloon-num--pink">30</span>
+        <span class="sim-balloon-unit sim-balloon-num--pink">分</span>
       </div>
-      <div style="display:flex;align-items:center;gap:4px;font-weight:900;margin-top:28px;">
-        <span style="font-size:40px;color:#ff4f8b;font-weight:900;">1</span>
-        <span style="font-size:28px;color:#fff;font-weight:900;">日シミュレーション</span>
+      <div class="sim-heading-text">
+        <span class="sim-heading-num--pink">1</span>
+        <span class="sim-heading-label">日シミュレーション</span>
       </div>
     </div>
-
     <div class="sim-table">
       <div class="sim-table-header sim-table-header--pink">Daily missions</div>
       <div class="sim-row">
@@ -202,12 +189,10 @@
         <span class="sim-pt--total-pink">1,100pt</span>
       </div>
     </div>
-
     <div class="sim-arrow">
       <div class="sim-arrow-triangle sim-arrow-triangle--pink"></div>
       <p class="sim-arrow-text">さらに！なんと！</p>
     </div>
-
     <div class="sim-bonus sim-bonus--pink">
       <p class="sim-bonus-text">PICORA内で<span class="sim-highlight--pink">3か月以内に5,000pt以上</span>ポイントを貯めると、初回登録特典として…</p>
       <div class="sim-bonus-pt--pink">2,000pt</div>
@@ -232,76 +217,11 @@
     </div>
   </section>
 
-  <footer style="background:#ff72a2;"><p>©PICORA</p></footer>
+  <footer class="footer footer--pink"><p>©PICORA</p></footer>
 
 </div>
 </div>
 
-<script>
-// URLパラメータでカラー切り替え (?color=blue)
-(function() {
-  const color = new URLSearchParams(location.search).get('color');
-  if (color !== 'blue') return;
-
-  // ブルーバージョンに切り替え
-  document.getElementById('header-banner').className = 'header-banner header-banner--blue';
-  document.getElementById('pt-text').style.backgroundImage = 'linear-gradient(90deg,#7ce1e3 0%,#277ffa 100%)';
-  document.getElementById('mv-bg-img').src = 'https://www.figma.com/api/mcp/asset/5093bd9b-8b7a-4ad8-8ead-974c8de81d81';
-
-  document.querySelectorAll('.mv-catch-line--pink').forEach(el => {
-    el.className = el.className.replace('--pink','--blue');
-  });
-  document.querySelector('.mv-balloon-color').style.color = '#277ffa';
-
-  document.getElementById('reason-section').className = 'reason-section reason-section--blue';
-  document.querySelector('.sec-heading--pink').className = 'sec-heading sec-heading--blue';
-  document.querySelector('.num--pink').style.color = '#0261e6';
-
-  // アイコン切り替え
-  const icons = [
-    'https://www.figma.com/api/mcp/asset/714db79a-b635-4d17-8fa4-bb8aaa1fd3be',
-    'https://www.figma.com/api/mcp/asset/73c60c0c-ba57-4134-a1b6-6e6ca674d44d',
-    'https://www.figma.com/api/mcp/asset/64f01bfe-b9d7-4725-bd21-337c813087c0',
-    'https://www.figma.com/api/mcp/asset/d5fa58a2-086d-4182-b089-f08755a02147',
-  ];
-  document.querySelectorAll('.reason-card img').forEach((img, i) => {
-    if (icons[i]) img.src = icons[i];
-  });
-
-  // ステップ
-  document.querySelector('.sec-heading--pink-round').className = 'sec-heading--blue-round sec-heading';
-  document.querySelectorAll('.num[style]')[0].style.color = '#0261e6';
-  document.querySelector('.step-list').querySelectorAll('.step-num--pink').forEach(el => { el.className = 'step-num step-num--blue'; });
-  document.querySelector('.step-list').querySelectorAll('.step-arrow--pink').forEach(el => { el.className = 'step-arrow step-arrow--blue'; });
-  document.querySelector('.step-list').querySelectorAll('.step-card--pink').forEach(el => { el.className = 'step-card--blue'; });
-
-  // シミュレーション
-  document.getElementById('sim-section').className = 'sim-section sim-section--blue';
-  document.querySelector('.sim-table-header').className = 'sim-table-header sim-table-header--blue';
-  document.querySelectorAll('.sim-time-badge--pink').forEach(el => { el.className = 'sim-time-badge sim-time-badge--blue'; });
-  document.querySelectorAll('.sim-pt--pink').forEach(el => { el.className = 'sim-pt sim-pt--blue'; });
-  document.querySelector('.sim-pt--grad-pink').className = 'sim-pt--grad-blue';
-  document.querySelector('.sim-pt--total-pink').className = 'sim-pt--total-blue';
-  document.querySelector('.sim-arrow-triangle--pink').className = 'sim-arrow-triangle sim-arrow-triangle--blue';
-  document.querySelector('.sim-bonus--pink').className = 'sim-bonus sim-bonus--blue';
-  document.querySelector('.sim-bonus-pt--pink').className = 'sim-bonus-pt--blue';
-  document.querySelector('.sim-highlight--pink').className = 'sim-highlight--blue';
-  document.querySelector('.sim-balloon-num--pink').className = 'sim-balloon-num sim-balloon-num--blue';
-  document.querySelectorAll('.sim-balloon-num--pink').forEach(el => { el.className = 'sim-balloon-num sim-balloon-num--blue'; });
-
-  // Final
-  document.getElementById('final-section').className = 'final-section final-section--blue';
-  document.querySelector('.final-point-label--pink').className = 'final-point-label--blue';
-
-  // Footer
-  document.querySelector('footer').style.background = '#277ffa';
-
-  // balloon color
-  document.querySelector('.sim-balloon').querySelectorAll('span').forEach(el => {
-    el.className = el.className.replace('--pink','--blue');
-  });
-})();
-</script>
 <script src="js/bg.js"></script>
 </body>
 </html>

@@ -759,3 +759,212 @@ footer--blue { background: var(--blue); }
   font-size: 12px;
   margin-left: 2px;
 }
+
+/* ===== MV SECTION (05b uses same classes as 05) ===== */
+.mv-section {
+  position: relative;
+  width: 390px;
+  overflow: hidden;
+}
+
+.mv-bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mv-bg-white {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+}
+
+.mv-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+}
+
+.mv-bg-img--blue { opacity: 0.7; }
+
+.mv-person-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.mv-person-img {
+  position: absolute;
+  left: 76.23%;
+  top: 22.49%;
+  width: 49.95%;
+  height: 43.95%;
+  max-width: none;
+}
+
+.mv-content {
+  position: relative;
+  padding: 40px 0;
+  min-height: 630px;
+}
+
+.mv-catch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mv-catch-box {
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 20px 4px;
+}
+
+.mv-catch-text {
+  font-size: 46px;
+  font-weight: 900;
+  white-space: nowrap;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mv-catch-text--blue {
+  background-image: linear-gradient(90deg, rgb(124,225,227) 0%, rgb(39,127,250) 100%);
+}
+
+.mv-ei {
+  position: absolute;
+  top: 205px;
+  left: 13px;
+}
+
+.mv-ei-big-wrap {
+  width: 123px;
+  height: 143px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mv-ei-big {
+  font-size: 110px;
+  font-weight: 900;
+  color: #e60202;
+  transform: rotate(-6deg);
+  display: block;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.mv-ei-mark-wrap {
+  width: 96px;
+  height: 108px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 90px;
+  margin-top: 52px;
+}
+
+.mv-ei-mark {
+  font-size: 80px;
+  font-weight: 900;
+  color: #e60202;
+  transform: rotate(13.52deg) skewX(-3.1deg);
+  display: block;
+  line-height: 1;
+  letter-spacing: -4px;
+  white-space: nowrap;
+}
+
+.mv-balloon {
+  position: absolute;
+  top: 355px;
+  left: 19px;
+}
+
+.mv-balloon-arrow-wrap {
+  width: 41px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 207px;
+}
+
+.mv-balloon-arrow {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 14px solid #fff;
+  transform: rotate(40deg);
+}
+
+.mv-balloon-body {
+  background: #fff;
+  border-radius: 70px;
+  padding: 6px 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 24px;
+  font-weight: 900;
+  white-space: nowrap;
+  margin-top: 24px;
+}
+
+.mv-balloon-red  { color: #e60202; line-height: 40px; }
+.mv-balloon-blue { color: var(--blue); line-height: 40px; }
+
+.mv-cta {
+  position: absolute;
+  top: 490px;
+  left: 0;
+  width: 390px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mv-cta .cta-badge { margin-left: 36px; align-self: flex-start; }
+.mv-cta .cta-btn   { margin-top: 10px; }
+
+/* pt-text blue gradient */
+.pt-text--blue {
+  font-size: 18px;
+  font-weight: 900;
+  background-image: var(--blue-grad);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Num colors */
+.num--blue      { color: #0261e6; }
+.num--step-blue { color: #0261e6; font-size: 40px; }
+
+/* Simulation heading */
+.sim-heading { position: relative; flex-direction: column; gap: 0; }
+.sim-heading .sim-balloon { position: absolute; top: 10px; left: 50%; transform: translateX(10px); }
+.sim-heading-text { display: flex; align-items: center; gap: 4px; font-weight: 900; margin-top: 28px; }
+.sim-heading-num--blue { font-size: 40px; color: #0261e6; font-weight: 900; }
+.sim-heading-label { font-size: 28px; color: #fff; font-weight: 900; }
+
+/* Step card */
+.step-card { border-radius: 10px; padding: 16px 20px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.step-card--blue { background: var(--blue-light); }
+
+/* Footer */
+.footer { padding: 10px 20px; display: flex; align-items: center; justify-content: center; }
+.footer p { font-size: 14px; font-weight: 700; color: #fff; }
+.footer--blue { background: var(--blue); }
