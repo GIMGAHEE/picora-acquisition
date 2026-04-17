@@ -106,13 +106,13 @@ body {
 /* え!? テキスト */
 .mv-ei {
   position: absolute;
-  top: 280px;
+  top: 240px;
   left: 13px;
   pointer-events: none;
 }
 
 .mv-ei-big {
-  font-size: 130px;
+  font-size: 110px;
   font-weight: 900;
   color: var(--red);
   transform: rotate(-6deg);
@@ -121,13 +121,13 @@ body {
 }
 
 .mv-ei-mark {
-  font-size: 90px;
+  font-size: 80px;
   font-weight: 900;
   color: var(--red);
   transform: rotate(14deg) skewX(-3deg);
   display: block;
   line-height: 1;
-  margin-left: 100px;
+  margin-left: 90px;
   margin-top: -20px;
   letter-spacing: -4px;
 }
@@ -152,9 +152,10 @@ body {
   display: inline-block;
   background: #fff;
   padding: 2px 20px 4px 20px;
-  font-size: 52px;
+  font-size: 46px;
   font-weight: 900;
   line-height: 1.25;
+  white-space: nowrap;
 }
 
 .mv-catch-line--pink span {
@@ -174,7 +175,7 @@ body {
 /* 吹き出し */
 .mv-balloon {
   position: absolute;
-  top: 430px;
+  top: 375px;
   left: 19px;
   z-index: 3;
 }
